@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+:root {
+  --tf-espresso: #2b1c14;
+  --tf-espresso-2: #3a2a1f;
+  --tf-rose: #d4748c;
+  --tf-rose-strong: #c05f78;
+  --tf-blush: #f6d6de;
+  --tf-brass: #d2b48c;
+  --tf-parchment: #f5f2ec;
+  --tf-charcoal: #2d2d2d;
+  --tf-white: #ffffff;
+}
+
+@theme inline {
+  --color-espresso: var(--tf-espresso);
+  --color-espresso-2: var(--tf-espresso-2);
+  --color-rose: var(--tf-rose);
+  --color-rose-strong: var(--tf-rose-strong);
+  --color-blush: var(--tf-blush);
+  --color-brass: var(--tf-brass);
+  --color-parchment: var(--tf-parchment);
+  --color-charcoal: var(--tf-charcoal);
+
+  --font-display: var(--font-montserrat);
+  --font-body: var(--font-poppins);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--tf-parchment);
+  color: var(--tf-charcoal);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--tf-rose);
+  color: var(--tf-espresso);
+}
+
+:focus-visible {
+  outline: 2px solid var(--tf-rose);
+  outline-offset: 3px;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}

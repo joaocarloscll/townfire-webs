@@ -1,0 +1,16 @@
+{
+  "brand": "TOWN FIRE",
+  "descriptor": "Engenharia de Conformidade Predial",
+  "primary_typeface": "Montserrat",
+  "secondary_typeface": "Poppins",
+  "palette": {
+    "Espresso": "#2B1C14",
+    "Rosa Queimado": "#D4748C",
+    "Rosa Blush": "#F6D6DE",
+    "Bege Latão": "#D2B48C",
+    "Pérgamo": "#F5F2EC",
+    "Carvão": "#2D2D2D",
+    "Branco": "#FFFFFF"
+  },
+  "core_lockup": "símbolo edificação + chama; TOWN / FIRE; descriptor"
+}
