@@ -1,9 +1,9 @@
 const STEPS = [
-  "Entendemos o imóvel",
-  "Identificamos o caminho",
-  "Desenvolvemos a solução",
-  "Acompanhamos as exigências",
-  "Buscamos a conformidade",
+  "Entender o imóvel",
+  "Definir o caminho",
+  "Desenvolver a solução",
+  "Conduzir a regularização",
+  "Manter o processo legível",
 ];
 
 export function JourneyGraphic() {

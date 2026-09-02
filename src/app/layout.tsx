@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, siteConfig } from "@/lib/site-config";
+import { SITE_URL } from "@/lib/site-config";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -15,9 +15,9 @@ const poppins = Poppins({
   weight: ["400", "500", "600"],
 });
 
-const title = "Town Fire — Engenharia de Conformidade Predial";
+const title = "Town Fire | Engenharia de Incêndio e Regularização Predial";
 const description =
-  "A Town Fire organiza o caminho técnico entre um imóvel pendente e um imóvel apto. Diagnóstico, projeto e regularização com clareza do início ao fim.";
+  "A Town Fire lê a situação do imóvel, define o caminho técnico e conduz projetos, regularização e exigências até a conformidade.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,14 +26,6 @@ export const metadata: Metadata = {
     template: "%s · Town Fire",
   },
   description,
-  keywords: [
-    "engenharia de conformidade predial",
-    "projeto de incêndio",
-    "regularização de imóvel",
-    "PPCI",
-    "conformidade predial Goiânia",
-    "vistoria do corpo de bombeiros",
-  ],
   authors: [{ name: "Town Fire" }],
   alternates: { canonical: "/" },
   openGraph: {
@@ -52,27 +44,64 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    "max-image-preview": "large",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/brand/symbol-color.svg", type: "image/svg+xml" },
+    ],
     apple: "/apple-touch-icon.png",
   },
   manifest: "/site.webmanifest",
 };
 
+export const viewport: Viewport = {
+  themeColor: "#2B1C14",
+  colorScheme: "light",
+};
+
+// Fontes: 06_TECHNICAL_TEMPLATES/structured-data/{organization,localbusiness}.jsonld
+// e 16_AUTORIDADE_EQUIPE/person_*.schema.json. Campos sem dado real confirmado
+// (email, endereço, redes) são omitidos em vez de preenchidos com placeholder,
+// porque JSON-LD é lido por máquina e um placeholder ali lê como dado inventado.
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "Town Fire",
-  description,
-  slogan: "Projeta · Regulariza · Aprova",
-  url: SITE_URL,
-  areaServed: siteConfig.serviceArea,
-  knowsAbout: [
-    "Engenharia de conformidade predial",
-    "Segurança contra incêndio",
-    "Regularização predial",
-    "Projeto de prevenção e combate a incêndio",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Town Fire",
+      url: SITE_URL,
+      description,
+      telephone: "+5562992292257",
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITE_URL}/#localbusiness`,
+      name: "Town Fire",
+      url: SITE_URL,
+      description,
+      telephone: "+5562992292257",
+      areaServed: [
+        { "@type": "City", name: "Goiânia" },
+        { "@type": "City", name: "Anápolis" },
+      ],
+    },
+    {
+      "@type": "Person",
+      name: "Jefferson Jesus",
+      jobTitle: "Engenheiro Mecânico",
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      sameAs: ["https://www.linkedin.com/in/jefferson--jesus/"],
+    },
+    {
+      "@type": "Person",
+      name: "João Carlos Chaves",
+      jobTitle: "Engenheiro Civil",
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      sameAs: ["https://www.linkedin.com/in/joaocarloscl/"],
+    },
   ],
 };
 

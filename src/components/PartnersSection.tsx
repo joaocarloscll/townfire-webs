@@ -1,49 +1,68 @@
-import { whatsappHref } from "@/lib/site-config";
+import { WhatsAppLink } from "./WhatsAppLink";
+import type { WhatsappIntent } from "@/lib/whatsapp";
 
-const PARTNERS = [
-  "Contabilidades",
-  "Arquitetos",
-  "Imobiliárias e corretores",
-  "Construtoras e instaladores",
-  "Administradoras e facilities",
+const PARTNERS: {
+  title: string;
+  text: string;
+  cta: string;
+  intent: WhatsappIntent;
+}[] = [
+  {
+    title: "Contabilidades",
+    text: "Você cuida da empresa. A Town Fire assume a conversa técnica sobre o imóvel e mantém o parceiro informado.",
+    cta: "Sou contador",
+    intent: "accounting_partner",
+  },
+  {
+    title: "Arquitetura",
+    text: "A Town Fire entra na disciplina de incêndio e regularização preservando a relação do arquiteto com o cliente.",
+    cta: "Sou arquiteto",
+    intent: "architect_partner",
+  },
+  {
+    title: "Imobiliárias e corretores",
+    text: "Uma leitura prévia pode revelar exigências relevantes antes de decisões de ocupação ou locação.",
+    cta: "Trabalho com imóveis",
+    intent: "realestate_partner",
+  },
+  {
+    title: "Construtoras, instaladores e facilities",
+    text: "Escopos complementares com fronteiras claras entre projeto, regularização, execução e operação.",
+    cta: "Quero conversar sobre parceria",
+    intent: "builder_partner",
+  },
 ];
 
 export function PartnersSection() {
   return (
     <section id="parceiros" className="bg-parchment py-24">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-10">
-        <div>
-          <h2 className="font-display text-3xl font-bold leading-[1.15] tracking-[-0.01em] text-espresso sm:text-4xl">
-            Você ajuda empresas a nascer. Nós ajudamos o imóvel delas a ficar
-            apto.
-          </h2>
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-charcoal/75">
-            Trabalhamos junto de quem já está ao lado do cliente no processo
-            de abertura, expansão ou regularização — encaminhando o imóvel
-            pelo caminho técnico enquanto vocês seguem cuidando do restante.
-          </p>
-          <a
-            href={whatsappHref(
-              "Olá! Represento um escritório/empresa parceira e quero falar com a Town Fire sobre indicações."
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-block rounded-full border border-espresso px-7 py-3.5 font-body text-sm font-medium text-espresso transition-colors hover:bg-espresso hover:text-parchment"
-          >
-            Quero ser parceiro
-          </a>
-        </div>
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-rose">
+          Parcerias
+        </p>
+        <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-[1.15] tracking-[-0.01em] text-espresso sm:text-4xl">
+          Seu cliente precisa regularizar o imóvel. Você já sabe quem chamar.
+        </h2>
 
-        <ul className="flex flex-col justify-center gap-4 border-t border-brass/40 pt-8 lg:border-t-0 lg:border-l lg:pl-10 lg:pt-0">
+        <div className="mt-14 grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2">
           {PARTNERS.map((partner) => (
-            <li
-              key={partner}
-              className="font-display text-lg text-espresso"
-            >
-              {partner}
-            </li>
+            <div key={partner.title} className="border-t border-brass/40 pt-6">
+              <h3 className="font-display text-lg font-semibold text-espresso">
+                {partner.title}
+              </h3>
+              <p className="mt-2 max-w-sm text-sm leading-relaxed text-charcoal/70">
+                {partner.text}
+              </p>
+              <WhatsAppLink
+                intent={partner.intent}
+                placement={`partner_${partner.intent}`}
+                className="mt-4 inline-block rounded-full border border-espresso px-5 py-2.5 font-display text-xs font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-espresso hover:text-parchment"
+              >
+                {partner.cta}
+              </WhatsAppLink>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

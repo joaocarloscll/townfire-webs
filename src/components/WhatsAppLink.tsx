@@ -1,22 +1,19 @@
 import type { ReactNode } from "react";
-import { whatsappHref } from "@/lib/site-config";
+import { goWhatsapp, type WhatsappIntent } from "@/lib/whatsapp";
 
 export function WhatsAppLink({
-  message,
+  intent,
+  placement,
   className,
   children,
 }: {
-  message: string;
+  intent: WhatsappIntent;
+  placement: string;
   className?: string;
   children: ReactNode;
 }) {
   return (
-    <a
-      href={whatsappHref(message)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={className}
-    >
+    <a href={goWhatsapp(intent, placement)} className={className}>
       {children}
     </a>
   );

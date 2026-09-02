@@ -10,6 +10,16 @@
   --tf-parchment: #f5f2ec;
   --tf-charcoal: #2d2d2d;
   --tf-white: #ffffff;
+
+  /* design_system_tokens_v3.yaml */
+  --tf-radius-sm: 6px;
+  --tf-radius-md: 12px;
+  --tf-radius-lg: 20px;
+  --tf-radius-pill: 999px;
+  --tf-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --tf-duration-fast: 180ms;
+  --tf-duration-base: 280ms;
+  --tf-duration-editorial: 650ms;
 }
 
 @theme inline {
@@ -44,9 +54,33 @@ body {
 
 :focus-visible {
   outline: 2px solid var(--tf-rose);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .font-display {
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Reveal (Reveal.tsx): fade + translate curto, transform/opacity apenas */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--tf-duration-editorial) var(--tf-ease),
+    transform var(--tf-duration-editorial) var(--tf-ease);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

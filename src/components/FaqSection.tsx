@@ -1,19 +1,27 @@
 const FAQS = [
   {
-    q: "Toda análise depende de visita ao imóvel?",
-    a: "Depende do caso. Ocupação, área, cidade, risco e norma aplicável mudam o que é necessário — o diagnóstico inicial já indica os próximos passos.",
+    q: "Como sei se meu imóvel precisa de projeto ou regularização?",
+    a: "Depende de características como uso, área, configuração, ocupação e situação atual. A triagem inicial existe justamente para identificar o caminho correto.",
   },
   {
-    q: "Vocês garantem a aprovação do projeto?",
-    a: "Não. Nenhuma engenharia pode prometer aprovação garantida. O que garantimos é um caminho tecnicamente sustentável e acompanhado até o fim.",
+    q: "Já recebi uma exigência. Vocês conseguem assumir o caso?",
+    a: "Podemos analisar o documento e o material disponível para entender a pendência e definir o escopo necessário.",
   },
   {
-    q: "A Town Fire atende só segurança contra incêndio?",
-    a: "Incêndio é a porta de entrada principal hoje. A atuação da Town Fire é pensada para abranger conformidade predial de forma mais ampla ao longo do tempo.",
+    q: "Vocês acompanham o processo de regularização?",
+    a: "O acompanhamento pode fazer parte do escopo contratado. A proposta deixa claro quais etapas estão incluídas.",
   },
   {
-    q: "Como funciona o primeiro contato?",
-    a: "Você envia a situação do imóvel pelo formulário ou WhatsApp, entendemos o cenário e retornamos com o caminho recomendado.",
+    q: "Atendem comércio e indústria?",
+    a: "Sim. A abordagem muda de acordo com o imóvel, a atividade e a complexidade da operação.",
+  },
+  {
+    q: "Posso falar com vocês antes de alugar, comprar ou reformar?",
+    a: "Sim. Uma análise anterior à decisão pode ajudar a identificar condicionantes técnicas relevantes.",
+  },
+  {
+    q: "Sou contador, arquiteto ou outro parceiro. Como funciona?",
+    a: "A parceria começa por uma conversa sobre perfil de cliente, fluxo de indicação e forma de acompanhamento.",
   },
 ];
 
@@ -40,7 +48,7 @@ export function FaqSection() {
       />
       <div className="mx-auto max-w-3xl px-6 lg:px-10">
         <h2 className="font-display text-3xl font-bold leading-[1.15] tracking-[-0.01em] text-espresso sm:text-4xl">
-          Perguntas frequentes
+          Perguntas que costumam aparecer antes da primeira conversa.
         </h2>
 
         <div className="mt-12 divide-y divide-brass/30 border-y border-brass/30">

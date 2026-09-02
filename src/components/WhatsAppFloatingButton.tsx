@@ -1,15 +1,11 @@
-import { whatsappHref } from "@/lib/site-config";
+import { goWhatsapp } from "@/lib/whatsapp";
 
 export function WhatsAppFloatingButton() {
   return (
     <a
-      href={whatsappHref(
-        "Olá! Quero analisar a situação do meu imóvel com a Town Fire."
-      )}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={goWhatsapp("floating", "floating_button")}
       aria-label="Falar com a Town Fire no WhatsApp"
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-rose px-5 py-3.5 font-body text-sm font-semibold text-espresso shadow-[0_12px_28px_-8px_rgba(43,28,20,0.55)] transition-transform hover:scale-[1.03] hover:bg-rose-strong"
+      className="fixed bottom-6 right-6 z-50 hidden items-center gap-2 rounded-full bg-rose px-5 py-3.5 font-display text-xs font-semibold uppercase tracking-[0.03em] text-espresso shadow-[0_12px_28px_-8px_rgba(43,28,20,0.55)] transition-transform hover:scale-[1.03] hover:bg-rose-strong lg:flex"
     >
       <svg
         aria-hidden

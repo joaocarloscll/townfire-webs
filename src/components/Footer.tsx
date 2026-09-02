@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
+import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
 export function Footer() {
   return (
@@ -14,13 +15,14 @@ export function Footer() {
             className="h-7 w-auto opacity-90"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed">
-            Engenharia de Conformidade Predial. {siteConfig.serviceArea}.
+            Engenharia de incêndio e regularização predial.{" "}
+            {siteConfig.serviceArea}.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm sm:text-right">
           <span className="col-span-2 text-brass sm:col-span-1">
-            {siteConfig.whatsappDisplay}
+            {WHATSAPP_DISPLAY}
           </span>
           <span className="col-span-2 sm:col-span-1">{siteConfig.email}</span>
           <span className="col-span-2 sm:col-span-1">
@@ -30,9 +32,8 @@ export function Footer() {
       </div>
 
       <p className="mx-auto mt-10 max-w-7xl px-6 text-xs text-parchment/40 lg:px-10">
-        Town Fire — Projeta · Regulariza · Aprova. As análises consideram
-        ocupação, área, cidade, risco e norma aplicável de cada imóvel; não
-        há garantia de aprovação.
+        Do imóvel pendente ao imóvel apto. As análises consideram uso, área,
+        ocupação e configuração de cada imóvel. Não há garantia de aprovação.
       </p>
     </footer>
   );
