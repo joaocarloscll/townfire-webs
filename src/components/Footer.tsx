@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 
@@ -15,19 +16,18 @@ export function Footer() {
             className="h-7 w-auto opacity-90"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed">
-            Engenharia de incêndio e regularização predial.{" "}
-            {siteConfig.serviceArea}.
+            Engenharia de incêndio e regularização. {siteConfig.serviceArea}.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-10 gap-y-2 text-sm sm:text-right">
-          <span className="col-span-2 text-brass sm:col-span-1">
-            {WHATSAPP_DISPLAY}
-          </span>
-          <span className="col-span-2 sm:col-span-1">{siteConfig.email}</span>
-          <span className="col-span-2 sm:col-span-1">
-            {siteConfig.instagram}
-          </span>
+        <div className="flex flex-col gap-2 text-sm sm:items-end">
+          <span className="text-brass">{WHATSAPP_DISPLAY}</span>
+          <Link
+            href="/politica-de-privacidade"
+            className="inline-flex min-h-[44px] items-center transition-colors hover:text-parchment"
+          >
+            Política de privacidade
+          </Link>
         </div>
       </div>
 

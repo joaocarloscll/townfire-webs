@@ -3,12 +3,9 @@
 import { useState } from "react";
 
 const NAV = [
-  { href: "#situacao", label: "Sua situação" },
-  { href: "#metodo", label: "Método" },
   { href: "#solucoes", label: "Soluções" },
-  { href: "#autoridade", label: "Quem somos" },
-  { href: "#parceiros", label: "Parceiros" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#metodo", label: "Como funciona" },
+  { href: "#engenheiros", label: "Engenheiros" },
 ];
 
 export function MobileNav() {

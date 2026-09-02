@@ -61,15 +61,18 @@ body {
   font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Reveal (Reveal.tsx): fade + translate curto, transform/opacity apenas */
-.reveal {
+/* Reveal (Reveal.tsx): fade + translate curto, transform/opacity apenas.
+   O estado oculto só existe sob `.js`, marcado por script inline no <head>.
+   Sem JavaScript o conteúdo aparece completo, como exige o estado canônico
+   V6 ("conteúdo completo sem JavaScript"). */
+.js .reveal {
   opacity: 0;
   transform: translateY(14px);
   transition:
     opacity var(--tf-duration-editorial) var(--tf-ease),
     transform var(--tf-duration-editorial) var(--tf-ease);
 }
-.reveal-visible {
+.js .reveal-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -78,7 +81,7 @@ body {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
+  .js .reveal {
     opacity: 1;
     transform: none;
     transition: none;

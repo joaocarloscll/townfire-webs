@@ -1,64 +1,62 @@
-import { WhatsAppLink } from "./WhatsAppLink";
+import { Reveal } from "./Reveal";
 
+// ATO 04 | Método. O traço vertical conecta as quatro etapas e termina em Rosa.
 const STEPS = [
   {
-    title: "Entender o imóvel",
-    text: "Ler uso, condição atual, objetivo e informações disponíveis.",
+    title: "Entender",
+    text: "Imóvel, atividade, momento e material disponível.",
   },
   {
-    title: "Definir o caminho",
-    text: "Identificar enquadramento, prioridades e próximas decisões.",
+    title: "Definir",
+    text: "Enquadramento, escopo, prioridades e responsáveis.",
   },
   {
-    title: "Desenvolver a solução",
-    text: "Produzir a engenharia necessária para o caso.",
+    title: "Desenvolver",
+    text: "Engenharia e documentação necessárias para o caso.",
   },
   {
-    title: "Conduzir a regularização",
-    text: "Organizar protocolo, exigências e etapas previstas no escopo.",
-  },
-  {
-    title: "Manter o processo legível",
-    text: "Status, pendência e próximo passo sempre visíveis.",
+    title: "Conduzir",
+    text: "Protocolo, exigências e etapas previstas na contratação.",
   },
 ];
 
 export function MethodSection() {
   return (
     <section id="metodo" className="bg-espresso py-24 text-parchment">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <h2 className="max-w-xl font-display text-3xl font-bold leading-[1.15] tracking-[-0.01em] sm:text-4xl">
-          Clareza primeiro. Engenharia na sequência certa.
+      <div className="mx-auto max-w-4xl px-6 lg:px-10">
+        <h2 className="font-display text-3xl font-bold leading-[1.15] tracking-[-0.01em] sm:text-4xl">
+          Pendência tem caminho.
         </h2>
 
-        <ol className="mt-14 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
+        <ol className="relative mt-14 border-l border-brass/40 pl-8">
           {STEPS.map((step, i) => (
-            <li key={step.title} className="border-t-2 border-brass/60 pt-5">
-              <span className="font-display text-2xl font-bold text-rose">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 font-display text-base font-semibold">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-parchment/75">
-                {step.text}
-              </p>
+            <li key={step.title} className="relative pb-12 last:pb-0">
+              <span
+                aria-hidden
+                className={`absolute -left-[35px] top-1.5 block h-3 w-3 rounded-full border ${
+                  i === STEPS.length - 1
+                    ? "border-rose bg-rose"
+                    : "border-brass bg-espresso"
+                }`}
+              />
+              <Reveal delayMs={i * 90}>
+                <span className="font-display text-xs font-semibold uppercase tracking-[0.14em] text-brass">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-2 font-display text-xl font-semibold">
+                  {step.title}
+                </h3>
+                <p className="mt-2 max-w-md text-base leading-relaxed text-parchment/75">
+                  {step.text}
+                </p>
+              </Reveal>
             </li>
           ))}
         </ol>
 
-        <div className="mt-16 flex flex-col items-start gap-6 border-t border-brass/30 pt-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-display text-xl font-semibold sm:max-w-sm">
-            Você sabe onde está. E sabe o que vem depois.
-          </p>
-          <WhatsAppLink
-            intent="method"
-            placement="method_close"
-            className="shrink-0 rounded-full bg-rose px-7 py-3.5 font-display text-sm font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-          >
-            Quero mapear meu caso
-          </WhatsAppLink>
-        </div>
+        <p className="mt-6 border-t border-brass/30 pt-10 font-display text-xl font-semibold">
+          Você sabe onde o processo está e o que vem depois.
+        </p>
       </div>
     </section>
   );

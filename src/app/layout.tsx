@@ -15,9 +15,11 @@ const poppins = Poppins({
   weight: ["400", "500", "600"],
 });
 
-const title = "Town Fire | Engenharia de Incêndio e Regularização Predial";
+// Metadados canônicos V6 (01_ESTRATEGIA_COPY/site_architecture_master_v6.md
+// e 03_SEO_GEO_AI/technical_seo_manifest_v6.yaml).
+const title = "Town Fire | Engenharia de Incêndio e Regularização";
 const description =
-  "A Town Fire lê a situação do imóvel, define o caminho técnico e conduz projetos, regularização e exigências até a conformidade.";
+  "Projetos de segurança contra incêndio, regularização e tratamento de exigências para comércios, galpões e indústrias em Goiânia, Anápolis e região.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -89,11 +91,12 @@ const jsonLd = {
       ],
     },
     {
-      "@type": "Person",
-      name: "Jefferson Jesus",
-      jobTitle: "Engenheiro Mecânico",
-      worksFor: { "@id": `${SITE_URL}/#organization` },
-      sameAs: ["https://www.linkedin.com/in/jefferson--jesus/"],
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "Town Fire",
+      inLanguage: "pt-BR",
+      publisher: { "@id": `${SITE_URL}/#organization` },
     },
     {
       "@type": "Person",
@@ -102,6 +105,13 @@ const jsonLd = {
       worksFor: { "@id": `${SITE_URL}/#organization` },
       sameAs: ["https://www.linkedin.com/in/joaocarloscl/"],
     },
+    {
+      "@type": "Person",
+      name: "Jefferson Jesus",
+      jobTitle: "Engenheiro Mecânico",
+      worksFor: { "@id": `${SITE_URL}/#organization` },
+      sameAs: ["https://www.linkedin.com/in/jefferson--jesus/"],
+    },
   ],
 };
 
@@ -109,9 +119,20 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
+      // O script inline abaixo acrescenta `.js` antes da hidratação, então o
+      // className do servidor difere do cliente por definição.
+      suppressHydrationWarning
       className={`${montserrat.variable} ${poppins.variable} h-full antialiased`}
     >
       <head>
+        {/* Marca `.js` antes do primeiro paint: só então o CSS esconde os
+            blocos com Reveal. Sem JavaScript nada fica oculto. */}
+        <script
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

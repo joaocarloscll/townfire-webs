@@ -2,13 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { WhatsAppLink } from "./WhatsAppLink";
+import type { WhatsappIntent } from "@/lib/whatsapp";
 
 /**
  * CTA inferior discreto, só no mobile, que aparece depois que o Hero sai da
  * tela (15_MOBILE_IOS_FIRST/mobile_ios_first_spec_v4.md). Respeita safe area
  * do iOS via env(safe-area-inset-bottom).
  */
-export function MobileStickyCta() {
+export function MobileStickyCta({
+  intent = "institutional_general",
+  placement = "mobile_sticky",
+  label = "Falar com a Town Fire",
+}: {
+  intent?: WhatsappIntent;
+  placement?: string;
+  label?: string;
+} = {}) {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -30,11 +39,11 @@ export function MobileStickyCta() {
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <WhatsAppLink
-        intent="hero"
-        placement="mobile_sticky"
-        className="flex items-center justify-center px-6 py-3 font-display text-sm font-semibold uppercase tracking-[0.04em] text-rose"
+        intent={intent}
+        placement={placement}
+        className="flex min-h-[52px] items-center justify-center px-6 font-display text-sm font-semibold uppercase tracking-[0.04em] text-rose"
       >
-        Falar com a Town Fire
+        {label}
       </WhatsAppLink>
     </div>
   );

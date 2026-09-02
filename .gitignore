@@ -39,6 +39,9 @@ yarn-error.log*
 # impeccable review captures (ephemeral, regenerated per inspection round)
 .impeccable/review/
 
+# pacotes de handoff extraídos (material de referência, não código do site)
+_handoff_*/
+
 # personal Claude Code overrides (permission mode, per-machine)
 .claude/settings.local.json
 

@@ -1,45 +1,43 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Bridge } from "@/components/Bridge";
-import { SituationSection } from "@/components/SituationSection";
 import { PovSection } from "@/components/PovSection";
-import { MethodSection } from "@/components/MethodSection";
 import { SolutionsSection } from "@/components/SolutionsSection";
-import { AudienceSection } from "@/components/AudienceSection";
+import { MethodSection } from "@/components/MethodSection";
 import { AuthoritySection } from "@/components/AuthoritySection";
-import { ExperienceSection } from "@/components/ExperienceSection";
-import { PartnersSection } from "@/components/PartnersSection";
-import { FaqSection } from "@/components/FaqSection";
 import { ConversionSection } from "@/components/ConversionSection";
 import { Footer } from "@/components/Footer";
-import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 
+// Home canônica V6: seis atos. Header, footer e pontes não contam como atos
+// (00_COMECE_AQUI/ESTADO_CANONICO_SITE_V6.md).
 export default function Home() {
   return (
     <>
       <Header />
       <main className="flex-1">
         <Hero />
-        <Bridge tone="dark">Onde seu imóvel está hoje?</Bridge>
-        <SituationSection />
-        <Bridge>A resposta depende do imóvel. E isso muda tudo.</Bridge>
+        <Bridge tone="dark">
+          Antes de desenhar a solução, existe uma decisão mais importante.
+        </Bridge>
         <PovSection />
-        <Bridge>É daí que nasce o caminho Town Fire.</Bridge>
-        <MethodSection />
-        <Bridge tone="dark">A sequência é clara. O ponto de entrada muda conforme o caso.</Bridge>
+        <Bridge>A leitura define o trabalho.</Bridge>
         <SolutionsSection />
-        <Bridge>O tipo de negócio muda. A necessidade de clareza permanece.</Bridge>
-        <AudienceSection />
+        <Bridge>
+          Cada caso começa em um ponto. O próximo passo fica definido.
+        </Bridge>
+        <MethodSection />
+        <Bridge tone="dark">
+          A experiência da Town Fire foi construída em ambientes que cobram
+          precisão.
+        </Bridge>
         <AuthoritySection />
-        <Bridge>Boa engenharia também precisa ser fácil de acompanhar.</Bridge>
-        <ExperienceSection />
-        <PartnersSection />
-        <FaqSection />
+        <Bridge>
+          Seu imóvel já tem uma situação. O próximo passo é localizá-la.
+        </Bridge>
         <ConversionSection />
       </main>
       <Footer />
-      <WhatsAppFloatingButton />
       <MobileStickyCta />
     </>
   );
