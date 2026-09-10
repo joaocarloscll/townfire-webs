@@ -25,12 +25,12 @@ const SERVICES = [
     cta: "Falar sobre projeto",
   },
   {
-    slug: "ppci",
-    title: "PPCI",
-    text: "Sistemas, equipamentos e documentação de prevenção e combate a incêndio.",
+    slug: "pscip",
+    title: "PSCIP",
+    text: "Projeto de Segurança Contra Incêndio e Pânico: documento técnico exigido pelo Corpo de Bombeiros.",
     image: ppciImg,
     imagePosition: "50% 52%",
-    cta: "Falar sobre PPCI",
+    cta: "Falar sobre PSCIP",
   },
   {
     slug: "avcb",
