@@ -17,6 +17,11 @@ const SERVICES = [
     title: "Projeto de Incêndio",
     text: "Projeto técnico das medidas de segurança contra incêndio exigidas para o imóvel.",
     image: projetoImg,
+    // Ancoragem vertical manual: a foto é 4:3 e o card corta pra 3:1, então o
+    // recorte automático (centro) apara quase metade da imagem. Cada valor
+    // abaixo foi calibrado olhando o enquadramento real de cada foto — ver
+    // referência de enquadramento na PR.
+    imagePosition: "50% 40%",
     cta: "Falar sobre projeto",
   },
   {
@@ -24,6 +29,7 @@ const SERVICES = [
     title: "PPCI",
     text: "Sistemas, equipamentos e documentação de prevenção e combate a incêndio.",
     image: ppciImg,
+    imagePosition: "50% 52%",
     cta: "Falar sobre PPCI",
   },
   {
@@ -31,6 +37,7 @@ const SERVICES = [
     title: "AVCB",
     text: "Acompanhamento técnico para emissão ou renovação do AVCB.",
     image: avcbImg,
+    imagePosition: "50% 50%",
     cta: "Falar sobre AVCB",
   },
   {
@@ -38,6 +45,7 @@ const SERVICES = [
     title: "CLCB",
     text: "Regularização simplificada quando o imóvel se enquadra nesse procedimento.",
     image: clcbImg,
+    imagePosition: "50% 28%",
     cta: "Falar sobre CLCB",
   },
   {
@@ -45,6 +53,7 @@ const SERVICES = [
     title: "Regularização completa",
     text: "Análise, projeto, documentação, protocolo e acompanhamento do processo.",
     image: regularizacaoImg,
+    imagePosition: "50% 45%",
     cta: "Quero regularizar",
   },
   {
@@ -52,6 +61,7 @@ const SERVICES = [
     title: "Vistoria e Laudo Técnico",
     text: "Inspeção dos sistemas existentes, com testes e emissão de laudo técnico.",
     image: vistoriaImg,
+    imagePosition: "50% 58%",
     cta: "Falar sobre vistoria",
   },
 ];
@@ -94,6 +104,7 @@ export function SolutionsSection() {
                   alt={`${service.title} — Town Fire`}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  style={{ objectPosition: service.imagePosition }}
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </div>
