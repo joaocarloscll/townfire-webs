@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { GA_MEASUREMENT_ID } from "@/lib/site-config";
 import {
@@ -16,17 +16,28 @@ declare global {
   }
 }
 
-// Expira os cookies do GA4 no domínio atual (o único ao alcance do site —
-// não existe acesso a cookies de outros domínios/subdomínios do Google).
+// Expira os cookies do GA4. gtag.js grava esses cookies com o domínio
+// "pontuado" (ex.: .townfire.com.br), que cobre apex + www — por isso a
+// limpeza tenta tanto o host atual quanto essa variante. Nunca mexe em
+// cookies de google.com (fora do alcance do site) nem em outros cookies.
 function clearAnalyticsCookies() {
   if (typeof document === "undefined") return;
   const names = document.cookie
     .split(";")
     .map((entry) => entry.split("=")[0]?.trim())
     .filter(Boolean);
+  const isAnalyticsCookie = (name: string) =>
+    name === "_ga" || name === "_gid" || name.startsWith("_ga_");
+
+  const expired = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  const host = window.location.hostname;
+  const dotDomain = host.includes(".") ? `.${host}` : null;
+
   for (const name of names) {
-    if (name === "_ga" || name === "_gid" || name.startsWith("_ga_")) {
-      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+    if (!isAnalyticsCookie(name)) continue;
+    document.cookie = `${name}=; ${expired}; path=/`;
+    if (dotDomain) {
+      document.cookie = `${name}=; ${expired}; path=/; domain=${dotDomain}`;
     }
   }
 }
@@ -37,9 +48,19 @@ function clearAnalyticsCookies() {
  * e só carrega o gtag.js quando o visitante permite medição. Publicidade
  * (ad_storage/ad_user_data/ad_personalization) fica sempre "denied" nesta
  * etapa — não existe Google Ads/GTM ainda.
+ *
+ * Revogação (granted → denied): abordagem conservadora. gtag.js, uma vez
+ * carregado, continua executando na página atual — atualizar o sinal de
+ * consentimento não descarrega o script. Por isso, quando a revogação
+ * acontece DEPOIS que o script já rodou nesta página, recarregamos uma
+ * única vez: a página volta a carregar já com "denied" salvo, então o
+ * gtag.js nem chega a ser requisitado. Sem reload em loop — só dispara
+ * quando `scriptLoadedRef` é true, e o valor reseta a cada carregamento
+ * novo (contexto de JS novo).
  */
 export function Analytics() {
   const [loadScript, setLoadScript] = useState(false);
+  const scriptLoadedRef = useRef(false);
 
   useEffect(() => {
     window.dataLayer = window.dataLayer || [];
@@ -59,10 +80,14 @@ export function Analytics() {
     const applyConsent = (value: ConsentValue | null) => {
       if (value === "granted") {
         window.gtag("consent", "update", { analytics_storage: "granted" });
+        scriptLoadedRef.current = true;
         setLoadScript(true);
       } else if (value === "denied") {
         window.gtag("consent", "update", { analytics_storage: "denied" });
         clearAnalyticsCookies();
+        if (scriptLoadedRef.current) {
+          window.location.reload();
+        }
       }
     };
 
@@ -74,9 +99,6 @@ export function Analytics() {
     return () => window.removeEventListener(CONSENT_CHANGE_EVENT, onChange);
   }, []);
 
-  // O script, uma vez carregado, permanece montado: revogar consentimento
-  // atualiza o sinal (acima) em vez de remover a tag — é assim que o
-  // Consent Mode do Google é projetado para funcionar.
   if (!loadScript) return null;
 
   return (

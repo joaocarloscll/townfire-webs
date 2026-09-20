@@ -51,6 +51,8 @@ export function Footer() {
         <div className="flex flex-col gap-1 sm:items-end">
           <a
             href={`tel:+${WHATSAPP_E164}`}
+            data-event="phone_click"
+            data-placement="footer"
             className={`${linkClassName} text-brass hover:text-brass`}
           >
             {WHATSAPP_DISPLAY}
@@ -59,6 +61,8 @@ export function Footer() {
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
+            data-event="instagram_click"
+            data-placement="footer"
             className={linkClassName}
           >
             Instagram

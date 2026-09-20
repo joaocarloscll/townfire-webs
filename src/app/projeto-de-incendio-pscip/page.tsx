@@ -96,7 +96,7 @@ export default function ProjetoDeIncendioPscip() {
       <Header />
 
       <main className="flex-1">
-        <section className="bg-espresso py-20 text-parchment lg:py-28">
+        <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
               Projeto de incêndio e PSCIP
@@ -199,18 +199,8 @@ export default function ProjetoDeIncendioPscip() {
             <h2 className="font-display text-3xl font-bold leading-[1.15] sm:text-4xl">
               Perguntas frequentes
             </h2>
-            <WhatsAppLink
-              intent="projeto_pscip"
-              placement="projeto_pscip_final"
-              className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Enviar meu caso para análise
-            </WhatsAppLink>
-            <p className="mt-6 text-sm text-parchment/60">
-              WhatsApp oficial: {WHATSAPP_DISPLAY}
-            </p>
 
-            <dl className="mt-14 divide-y divide-brass/25 border-t border-brass/25">
+            <dl className="mt-10 divide-y divide-brass/25 border-t border-brass/25">
               {FAQ.map((item) => (
                 <div key={item.q} className="py-6">
                   <dt className="font-display text-base font-semibold">
@@ -222,6 +212,17 @@ export default function ProjetoDeIncendioPscip() {
                 </div>
               ))}
             </dl>
+
+            <WhatsAppLink
+              intent="projeto_pscip"
+              placement="projeto_pscip_final"
+              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
+            >
+              Enviar meu caso para análise
+            </WhatsAppLink>
+            <p className="mt-6 text-sm text-parchment/60">
+              WhatsApp oficial: {WHATSAPP_DISPLAY}
+            </p>
           </div>
         </section>
       </main>

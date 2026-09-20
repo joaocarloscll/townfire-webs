@@ -57,17 +57,21 @@ export function ConsentBanner() {
         </p>
 
         <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+          {/* Peso visual equivalente entre as duas escolhas: ambos os
+              botões são preenchidos e com borda, mesmo tamanho de fonte e
+              altura — só a cor muda. Nada de "outline fraco vs. preenchido
+              forte", que leria como a recusa estar escondida. */}
           <button
             type="button"
             onClick={() => choose("denied")}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-parchment/30 px-5 font-display text-xs font-semibold uppercase tracking-[0.04em] text-parchment transition-colors hover:border-parchment/60"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-parchment/40 bg-parchment/10 px-5 font-display text-xs font-semibold uppercase tracking-[0.04em] text-parchment transition-colors hover:bg-parchment/15"
           >
             Continuar sem medição
           </button>
           <button
             type="button"
             onClick={() => choose("granted")}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-rose px-5 font-display text-xs font-semibold uppercase tracking-[0.04em] text-espresso transition-colors hover:bg-rose-strong"
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-rose bg-rose px-5 font-display text-xs font-semibold uppercase tracking-[0.04em] text-espresso transition-colors hover:bg-rose-strong"
           >
             Permitir medição
           </button>
