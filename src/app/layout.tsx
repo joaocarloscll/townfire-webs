@@ -17,10 +17,13 @@ const poppins = Poppins({
 });
 
 // Metadados canônicos V6 (01_ESTRATEGIA_COPY/site_architecture_master_v6.md
-// e 03_SEO_GEO_AI/technical_seo_manifest_v6.yaml).
-const title = "Town Fire | Engenharia de Incêndio e Regularização";
+// e 03_SEO_GEO_AI/technical_seo_manifest_v6.yaml). Título e descrição citam
+// os serviços reais do site (ver SolutionsSection) — nada aqui deve nomear
+// serviço que o site ainda não oferece de fato, para não descolar o que
+// mecanismos de busca/IA leem do que a página mostra.
+const title = "Town Fire | Projeto de Incêndio, PSCIP e Regularização CBMGO";
 const description =
-  "Projetos de segurança contra incêndio, regularização e tratamento de exigências para comércios, galpões e indústrias em Goiânia, Anápolis e região.";
+  "Town Fire: projeto de incêndio, PSCIP, AVCB, CLCB, regularização junto ao Corpo de Bombeiros, vistoria e laudo técnico para comércios, galpões e indústrias em Goiânia, Anápolis e região.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -48,6 +51,8 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
   },
   icons: {
     icon: [
@@ -66,8 +71,11 @@ export const viewport: Viewport = {
 
 // Fontes: 06_TECHNICAL_TEMPLATES/structured-data/{organization,localbusiness}.jsonld
 // e 16_AUTORIDADE_EQUIPE/person_*.schema.json. Campos sem dado real confirmado
-// (email, endereço, redes) são omitidos em vez de preenchidos com placeholder,
-// porque JSON-LD é lido por máquina e um placeholder ali lê como dado inventado.
+// (email, endereço, redes, data de fundação) são omitidos em vez de
+// preenchidos com placeholder, porque JSON-LD é lido por máquina e um
+// placeholder ali lê como dado inventado. knowsAbout e hasOfferCatalog
+// listam só os 6 serviços reais de SolutionsSection — nada de SAVE,
+// fotovoltaico ou CERCON até existirem de fato no site.
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -78,6 +86,58 @@ const jsonLd = {
       url: SITE_URL,
       description,
       telephone: "+5562992292257",
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+5562992292257",
+        contactType: "customer service",
+        availableLanguage: "Portuguese",
+      },
+      knowsAbout: [
+        "Segurança contra incêndio",
+        "Projeto de Incêndio",
+        "PSCIP",
+        "AVCB",
+        "CLCB",
+        "Regularização junto ao Corpo de Bombeiros",
+        "Vistoria de segurança contra incêndio",
+        "Laudo técnico de segurança contra incêndio",
+      ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Serviços Town Fire",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "Projeto de Incêndio" },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "PSCIP" },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "AVCB" },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "CLCB" },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Regularização completa",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Vistoria e Laudo Técnico",
+            },
+          },
+        ],
+      },
     },
     {
       "@type": "ProfessionalService",
@@ -139,6 +199,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <link rel="describedby" href={`${SITE_URL}/llms.txt`} />
       </head>
       <body className="min-h-full flex flex-col bg-parchment text-charcoal">
         {children}
