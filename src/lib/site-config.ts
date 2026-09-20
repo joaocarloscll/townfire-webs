@@ -1,6 +1,7 @@
-// Domínio final ainda não definido — trocar antes de publicar (afeta SEO,
-// OG tags, sitemap e JSON-LD).
-export const SITE_URL = "https://townfire.com.br";
+// Domínio canônico: o apex (townfire.com.br) faz redirect 308 para o www
+// na Vercel, então a URL final servida — e a única que deve aparecer em
+// sitemap, canonical, OG e JSON-LD — é o www (afeta SEO).
+export const SITE_URL = "https://www.townfire.com.br";
 
 // Dados operacionais reais ainda não confirmados pelo cliente (ver PRODUCT.md
 // "Capabilities and Constraints"). Placeholders explícitos — substituir antes
