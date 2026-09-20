@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-import { SITE_URL } from "@/lib/site-config";
+import { GA_MEASUREMENT_ID, SITE_URL } from "@/lib/site-config";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -141,6 +142,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col bg-parchment text-charcoal">
         {children}
+        {/* Google tag (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );
