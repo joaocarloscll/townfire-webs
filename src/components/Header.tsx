@@ -3,10 +3,13 @@ import Link from "next/link";
 import { MobileNav } from "./MobileNav";
 import { WhatsAppLink } from "./WhatsAppLink";
 
+// Âncoras com "/" na frente: funcionam tanto na home (só rola até a seção,
+// sem reload — mesmo documento) quanto em qualquer outra página (navega até
+// "/" e o navegador rola até a seção ao carregar).
 export const NAV = [
-  { href: "#solucoes", label: "Soluções" },
-  { href: "#metodo", label: "Como funciona" },
-  { href: "#engenheiros", label: "Engenheiros" },
+  { href: "/#solucoes", label: "Soluções" },
+  { href: "/#metodo", label: "Como funciona" },
+  { href: "/#engenheiros", label: "Engenheiros" },
 ];
 
 export function Header() {

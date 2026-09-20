@@ -27,7 +27,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Town Fire
+          Town Fire Engenharia
         </div>
         <div
           style={{
@@ -39,8 +39,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Seu imóvel precisa estar apto. O caminho até lá não precisa ser
-          complicado.
+          Do imóvel pendente ao imóvel apto.
         </div>
         <div
           style={{
@@ -50,7 +49,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Projeta · Regulariza · Aprova
+          Engenharia de incêndio · PSCIP · Regularização CBMGO
         </div>
       </div>
     ),

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { WhatsAppLink } from "./WhatsAppLink";
 import { Reveal } from "./Reveal";
 import projetoImg from "@/imgs/projeto.jpeg";
@@ -9,60 +10,80 @@ import regularizacaoImg from "@/imgs/regularizacao.jpeg";
 import vistoriaImg from "@/imgs/vistoria.jpeg";
 
 // ATO 03 | Soluções. Grade de serviços concretos, pensada para caber numa
-// única dobra em desktop. Cada card tem um link secundário (texto, sem
-// preenchimento) — o CTA primário da seção continua único, no fechamento.
+// única dobra em desktop. Cinco dos seis cards levam para a página orgânica
+// correspondente (link HTML real, não só WhatsApp — ver seção 18 do
+// briefing de arquitetura); vistoria não tem página própria nesta etapa,
+// então mantém o CTA de WhatsApp direto.
 const SERVICES = [
   {
     slug: "projeto",
     title: "Projeto de Incêndio",
-    text: "Projeto técnico das medidas de segurança contra incêndio exigidas para o imóvel.",
+    text: "Projeto técnico das medidas de segurança contra incêndio exigidas para a edificação.",
     image: projetoImg,
     // Ancoragem vertical manual: a foto é 4:3 e o card corta pra 3:1, então o
     // recorte automático (centro) apara quase metade da imagem. Cada valor
-    // abaixo foi calibrado olhando o enquadramento real de cada foto — ver
-    // referência de enquadramento na PR.
+    // abaixo foi calibrado olhando o enquadramento real de cada foto.
     imagePosition: "50% 40%",
-    cta: "Falar sobre projeto",
+    href: "/projeto-de-incendio-pscip",
   },
   {
     slug: "pscip",
     title: "PSCIP",
-    text: "Projeto de Segurança Contra Incêndio e Pânico: documento técnico exigido pelo Corpo de Bombeiros.",
+    text: "Projeto de Segurança Contra Incêndio e Pânico desenvolvido conforme o enquadramento e as exigências aplicáveis ao imóvel.",
     image: ppciImg,
     imagePosition: "50% 52%",
-    cta: "Falar sobre PSCIP",
+    href: "/projeto-de-incendio-pscip",
   },
   {
-    slug: "avcb",
-    title: "AVCB",
-    text: "Acompanhamento técnico para emissão ou renovação do AVCB.",
+    slug: "cercon",
+    title: "CERCON",
+    text: "Acompanhamento técnico para obtenção ou renovação do Certificado de Conformidade junto ao CBMGO.",
     image: avcbImg,
     imagePosition: "50% 50%",
-    cta: "Falar sobre AVCB",
+    href: "/regularizacao-cbmgo-cercon",
   },
   {
-    slug: "clcb",
-    title: "CLCB",
-    text: "Regularização simplificada quando o imóvel se enquadra nesse procedimento.",
+    slug: "licenciamento-facilitado",
+    title: "Licenciamento Facilitado",
+    text: "Regularização simplificada para empreendimentos que atendem aos critérios definidos pelo CBMGO.",
     image: clcbImg,
     imagePosition: "50% 28%",
-    cta: "Falar sobre CLCB",
+    href: "/regularizacao-cbmgo-cercon#licenciamento-facilitado",
   },
   {
     slug: "regularizacao",
     title: "Regularização completa",
-    text: "Análise, projeto, documentação, protocolo e acompanhamento do processo.",
+    text: "Análise, projeto, documentação, protocolo, resposta a exigências e acompanhamento das etapas contratadas.",
     image: regularizacaoImg,
     imagePosition: "50% 45%",
-    cta: "Quero regularizar",
+    href: "/regularizacao-cbmgo-cercon",
   },
   {
     slug: "vistoria",
     title: "Vistoria e Laudo Técnico",
-    text: "Inspeção dos sistemas existentes, com testes e emissão de laudo técnico.",
+    text: "Inspeção das condições existentes, identificação de não conformidades e emissão da documentação técnica prevista no escopo contratado.",
     image: vistoriaImg,
     imagePosition: "50% 58%",
-    cta: "Falar sobre vistoria",
+    href: null,
+  },
+];
+
+// Demandas técnicas recentes: bloco editorial leve, sem foto e sem ícone
+// novo — texto e link apenas, no mesmo grid hairline do resto da seção.
+const DEMANDS = [
+  {
+    slug: "save",
+    title: "Sistemas de recarga de veículos elétricos",
+    text: "Avaliação e regularização de instalações com carregadores de veículos eletrificados conforme as exigências de segurança contra incêndio do CBMGO.",
+    href: "/save-carregadores-veiculos-eletricos",
+    linkLabel: "Entender SAVE e carregadores",
+  },
+  {
+    slug: "fotovoltaico",
+    title: "Sistemas fotovoltaicos",
+    text: "Análise das exigências de segurança contra incêndio aplicáveis a edificações com sistemas de energia solar fotovoltaica.",
+    href: "/sistema-fotovoltaico-cbmgo",
+    linkLabel: "Entender sistemas fotovoltaicos",
   },
 ];
 
@@ -116,22 +137,68 @@ export function SolutionsSection() {
                   <p className="mt-1.5 text-[13px] leading-snug text-charcoal/70">
                     {service.text}
                   </p>
-                  <WhatsAppLink
-                    intent="institutional_general"
-                    placement={`home_servicos_${service.slug}`}
-                    className="mt-2 inline-flex min-h-[28px] items-center font-display text-xs font-semibold uppercase tracking-[0.06em] text-rose hover:text-rose-strong"
-                  >
-                    {service.cta}
-                  </WhatsAppLink>
+                  {service.href ? (
+                    <Link
+                      href={service.href}
+                      aria-label={`Entender o serviço: ${service.title}`}
+                      className="mt-2 inline-flex min-h-[28px] items-center font-display text-xs font-semibold uppercase tracking-[0.06em] text-rose hover:text-rose-strong"
+                    >
+                      Entender este serviço
+                    </Link>
+                  ) : (
+                    <div className="mt-2 flex flex-col items-start gap-1">
+                      <WhatsAppLink
+                        intent="institutional_general"
+                        placement={`home_servicos_${service.slug}`}
+                        className="inline-flex min-h-[28px] items-center font-display text-xs font-semibold uppercase tracking-[0.06em] text-rose hover:text-rose-strong"
+                      >
+                        Falar sobre vistoria
+                      </WhatsAppLink>
+                      <Link
+                        href="/regularizacao-cbmgo-cercon"
+                        className="inline-flex min-h-[24px] items-center font-body text-xs text-charcoal/50 underline decoration-charcoal/25 underline-offset-2 hover:text-charcoal/80"
+                      >
+                        Ver regularização completa
+                      </Link>
+                    </div>
+                  )}
                 </Reveal>
               </div>
             </article>
           ))}
         </div>
 
+        <div className="mt-10 border-t border-brass/30 pt-8">
+          <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-rose">
+            Demandas técnicas atuais
+          </p>
+          <h3 className="mt-2 max-w-lg font-display text-xl font-semibold leading-[1.2] text-espresso sm:text-2xl">
+            Novas exigências também precisam de leitura técnica.
+          </h3>
+
+          <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10">
+            {DEMANDS.map((item) => (
+              <div key={item.slug}>
+                <h4 className="font-display text-base font-semibold text-espresso">
+                  {item.title}
+                </h4>
+                <p className="mt-2 text-sm leading-relaxed text-charcoal/70">
+                  {item.text}
+                </p>
+                <Link
+                  href={item.href}
+                  className="mt-3 inline-flex min-h-[28px] items-center font-display text-xs font-semibold uppercase tracking-[0.06em] text-rose hover:text-rose-strong"
+                >
+                  {item.linkLabel}
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-6 flex flex-col items-start gap-4 border-t border-brass/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-display text-base font-semibold text-espresso">
-            Comércios. Serviços. Galpões. Indústrias.
+            Comércios. Condomínios. Galpões. Indústrias.
           </p>
           <WhatsAppLink
             intent="institutional_general"

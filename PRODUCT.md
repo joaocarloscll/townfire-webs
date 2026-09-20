@@ -26,13 +26,13 @@ A Town Fire é uma empresa de engenharia de conformidade predial. Ela organiza o
 
 ## Operating Context
 
-Mercado inicial discutido: Goiânia, Anápolis e região (sujeito a validação operacional — não publicar como fato fechado). Jornada do cliente: situação → diagnóstico → projeto → regularização → acompanhamento de exigências → conformidade. O site deve funcionar como porta de entrada para Google Ads (intenção → landing page → lead qualificado → CRM → venda) e para tráfego direto/indicação de parceiros B2B.
+Áreas de atendimento confirmadas: Goiânia, Aparecida de Goiânia, Anápolis, Senador Canedo, Trindade e Hidrolândia (`siteConfig.serviceCities`) — usar "Goiânia e região" na copy corrida, lista completa reservada para footer/schema. Jornada do cliente: situação → diagnóstico → projeto → regularização → acompanhamento de exigências → conformidade. O site deve funcionar como porta de entrada para Google Ads (intenção → landing page → lead qualificado → CRM → venda) e para tráfego direto/indicação de parceiros B2B.
 
 ## Capabilities and Constraints
 
 - Site institucional multi-página (não single landing): Home, Soluções, Como funciona, Para empresas, Para parceiros, FAQ, Contato, mais landing pages específicas por intenção/cidade para Google Ads.
 - Conversão principal: clique direto para WhatsApp em todo CTA do site (header, hero, cada item de "sua situação", parceiros, CTA final, botão flutuante), cada um com mensagem pré-preenchida contextual ao ponto de clique via `wa.me`. Deliberadamente **sem formulário** — decisão do cliente: preferem clique direto a arriscar abandono de preenchimento.
-- WhatsApp oficial confirmado: +55 62 99229-2257 (`src/lib/site-config.ts`). CNPJ ainda não existe (empresa não constituída) — não exibir em nenhum lugar do site, nem como placeholder, até haver um. Ainda não definidos e **não devem ser inventados**: domínio final, e-mail, Instagram, endereço/área de atendimento, responsáveis técnicos/CREA, política de privacidade, stack de formulário/CRM de destino. Usar placeholders claros e visualmente marcados (ex.: `[EMAIL A DEFINIR]`) em vez de dados fictícios.
+- WhatsApp oficial confirmado: +55 62 99229-2257 (`src/lib/site-config.ts`). CNPJ ainda não existe (empresa não constituída) — não exibir em nenhum lugar do site, nem como placeholder, até haver um. Confirmados: domínio (`www.townfire.com.br`), Instagram (`@townfire.eng`), áreas de atendimento (Goiânia, Aparecida de Goiânia, Anápolis, Senador Canedo, Trindade, Hidrolândia — `siteConfig.serviceCities`). Ainda não definidos e **não devem ser inventados**: e-mail, endereço comercial público, responsáveis técnicos/CREA, stack de formulário/CRM de destino. Usar placeholders claros e visualmente marcados (ex.: `[EMAIL A DEFINIR]`) em vez de dados fictícios.
 - Preços, pacotes, prazos-padrão e condições comerciais ainda não definidos — não publicar tabela de preços real nem inventar uma.
 - Não prometer aprovação garantida em nenhuma peça de copy.
 

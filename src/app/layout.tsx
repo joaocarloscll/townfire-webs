@@ -1,8 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
-import { GA_MEASUREMENT_ID, SITE_URL } from "@/lib/site-config";
+import { Analytics } from "@/components/Analytics";
+import { ConsentBanner } from "@/components/ConsentBanner";
+import {
+  COMPANY_NAME,
+  INSTAGRAM_URL,
+  SITE_URL,
+  siteConfig,
+} from "@/lib/site-config";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -16,29 +22,27 @@ const poppins = Poppins({
   weight: ["400", "500", "600"],
 });
 
-// Metadados canônicos V6 (01_ESTRATEGIA_COPY/site_architecture_master_v6.md
-// e 03_SEO_GEO_AI/technical_seo_manifest_v6.yaml). Título e descrição citam
-// os serviços reais do site (ver SolutionsSection) — nada aqui deve nomear
-// serviço que o site ainda não oferece de fato, para não descolar o que
-// mecanismos de busca/IA leem do que a página mostra.
-const title = "Town Fire | Projeto de Incêndio, PSCIP e Regularização CBMGO";
+// Título e descrição citam os serviços reais do site (PSCIP, CERCON) em vez
+// de texto genérico. Template: páginas filhas fornecem só a parte
+// específica do título — o sufixo da marca entra uma única vez aqui.
+const title = "Projeto de Incêndio e Regularização CBMGO | Town Fire Engenharia";
 const description =
-  "Town Fire: projeto de incêndio, PSCIP, AVCB, CLCB, regularização junto ao Corpo de Bombeiros, vistoria e laudo técnico para comércios, galpões e indústrias em Goiânia, Anápolis e região.";
+  "Projetos de incêndio, PSCIP, regularização junto ao CBMGO, CERCON, vistorias e laudos para comércios, condomínios, galpões e indústrias em Goiânia e região.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: title,
-    template: "%s · Town Fire",
+    template: `%s | ${COMPANY_NAME}`,
   },
   description,
-  authors: [{ name: "Town Fire" }],
+  authors: [{ name: COMPANY_NAME }],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: SITE_URL,
-    siteName: "Town Fire",
+    siteName: COMPANY_NAME,
     title,
     description,
   },
@@ -69,109 +73,36 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
-// Fontes: 06_TECHNICAL_TEMPLATES/structured-data/{organization,localbusiness}.jsonld
-// e 16_AUTORIDADE_EQUIPE/person_*.schema.json. Campos sem dado real confirmado
-// (email, endereço, redes, data de fundação) são omitidos em vez de
-// preenchidos com placeholder, porque JSON-LD é lido por máquina e um
-// placeholder ali lê como dado inventado. knowsAbout e hasOfferCatalog
-// listam só os 6 serviços reais de SolutionsSection — nada de SAVE,
-// fotovoltaico ou CERCON até existirem de fato no site.
+// JSON-LD global: só Organization + WebSite. Person (João/Jefferson) vive em
+// src/app/page.tsx, perto de onde aparecem visualmente (AuthoritySection);
+// Service + BreadcrumbList vivem em cada página orgânica. Nada de
+// LocalBusiness/ProfessionalService/rating/review/oferta enquanto não
+// existir endereço comercial público real — endereço residencial nunca
+// entra aqui.
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
-      name: "Town Fire",
+      name: COMPANY_NAME,
+      alternateName: "Town Fire",
       url: SITE_URL,
-      description,
       telephone: "+5562992292257",
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: "+5562992292257",
-        contactType: "customer service",
-        availableLanguage: "Portuguese",
-      },
-      knowsAbout: [
-        "Segurança contra incêndio",
-        "Projeto de Incêndio",
-        "PSCIP",
-        "AVCB",
-        "CLCB",
-        "Regularização junto ao Corpo de Bombeiros",
-        "Vistoria de segurança contra incêndio",
-        "Laudo técnico de segurança contra incêndio",
-      ],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Serviços Town Fire",
-        itemListElement: [
-          {
-            "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "Projeto de Incêndio" },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "PSCIP" },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "AVCB" },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "CLCB" },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Regularização completa",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Vistoria e Laudo Técnico",
-            },
-          },
-        ],
-      },
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": `${SITE_URL}/#localbusiness`,
-      name: "Town Fire",
-      url: SITE_URL,
-      description,
-      telephone: "+5562992292257",
-      areaServed: [
-        { "@type": "City", name: "Goiânia" },
-        { "@type": "City", name: "Anápolis" },
-      ],
+      logo: `${SITE_URL}/brand/symbol-color.svg`,
+      sameAs: [INSTAGRAM_URL],
+      areaServed: siteConfig.serviceCities.map((name) => ({
+        "@type": "City",
+        name,
+      })),
     },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "Town Fire",
+      name: COMPANY_NAME,
       inLanguage: "pt-BR",
       publisher: { "@id": `${SITE_URL}/#organization` },
-    },
-    {
-      "@type": "Person",
-      name: "João Carlos Chaves",
-      jobTitle: "Engenheiro Civil",
-      worksFor: { "@id": `${SITE_URL}/#organization` },
-      sameAs: ["https://www.linkedin.com/in/joaocarloscl/"],
-    },
-    {
-      "@type": "Person",
-      name: "Jefferson Jesus",
-      jobTitle: "Engenheiro Mecânico",
-      worksFor: { "@id": `${SITE_URL}/#organization` },
-      sameAs: ["https://www.linkedin.com/in/jefferson--jesus/"],
     },
   ],
 };
@@ -199,23 +130,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <link rel="describedby" href={`${SITE_URL}/llms.txt`} />
       </head>
       <body className="min-h-full flex flex-col bg-parchment text-charcoal">
         {children}
-        {/* Google tag (gtag.js) */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
+        <Analytics />
+        <ConsentBanner />
       </body>
     </html>
   );

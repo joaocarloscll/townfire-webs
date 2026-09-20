@@ -1,22 +1,24 @@
-// ATO 05 | Sócios e prova. Composição tipográfica: números grandes, nomes
-// menores, linhas técnicas. Sem retratos e sem logos de empregadores.
-// Os números entram prontos, sem contador animado (regra do pacote V6).
+// ATO 05 | Sócios e prova. Composição tipográfica: destaque grande, nomes
+// menores, linhas técnicas. Sem retratos e sem logos de empregadores. O
+// destaque é uma palavra (não um número): "+100 processos" e "+7 anos" não
+// têm fonte canônica confirmada no projeto, então viraram prova qualitativa
+// em vez de estatística — mesma estrutura visual, sem inventar métrica.
 const FOUNDERS = [
   {
-    figure: "+100",
-    figureLabel: "Processos aprovados",
+    figure: "Projetos",
+    figureLabel: "Engenharia civil + segurança contra incêndio",
     name: "João Carlos Chaves",
     role: "Engenheiro Civil e sócio-proprietário.",
-    bio: "Há mais de cinco anos desenvolve projetos complementares, com atuação em segurança contra incêndio, instalações elétricas, BIM e regularização de imóveis.",
+    bio: "Atua com projetos complementares, segurança contra incêndio, BIM e regularização de edificações.",
     linkLabel: "Conhecer João no LinkedIn",
     linkedin: "https://www.linkedin.com/in/joaocarloscl/",
   },
   {
-    figure: "+7",
-    figureLabel: "Anos em projetos industriais",
+    figure: "Indústria",
+    figureLabel: "Engenharia mecânica + sistemas críticos",
     name: "Jefferson Jesus",
     role: "Engenheiro Mecânico e sócio-proprietário.",
-    bio: "Construiu sua experiência entre projetos industriais, sistemas críticos, HVAC, gases, compatibilização multidisciplinar e comissionamento.",
+    bio: "Atua com projetos industriais, HVAC, gases, compatibilização multidisciplinar e sistemas críticos.",
     linkLabel: "Conhecer Jefferson no LinkedIn",
     linkedin: "https://www.linkedin.com/in/jefferson--jesus/",
   },
