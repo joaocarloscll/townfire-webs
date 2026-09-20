@@ -53,6 +53,13 @@ export function Header() {
           <MobileNav />
         </div>
       </div>
+
+      {/* Alvo do portal do painel mobile (MobileNav.tsx): precisa ser um
+          irmão de bloco do row acima, dentro do <header>, em vez de um
+          `position: absolute` — assim o header cresce em fluxo normal
+          quando o menu abre e empurra o conteúdo abaixo, em vez de
+          sobrepor o hero. */}
+      <div id="mobile-nav-panel-root" className="lg:hidden" />
     </header>
   );
 }
