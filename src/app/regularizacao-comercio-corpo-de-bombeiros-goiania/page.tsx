@@ -10,16 +10,20 @@ import { SITE_URL } from "@/lib/site-config";
 
 const PATH = "/regularizacao-comercio-corpo-de-bombeiros-goiania";
 
-const title =
-  "Regularização de Comércio no Corpo de Bombeiros em Goiânia | Town Fire";
+const title = "Regularização de Comércio no CBMGO em Goiânia";
 const description =
-  "Regularize seu comércio junto ao Corpo de Bombeiros em Goiânia. Envie atividade, área e situação atual para entender o próximo passo técnico.";
+  "Regularização de comércio junto ao CBMGO em Goiânia. Análise do imóvel, documentação, PSCIP, exigências e acompanhamento das etapas contratadas.";
 
+// index,follow deliberado: landing curta e comercial, focada em comércio +
+// Goiânia + WhatsApp, distinta em intenção e profundidade da página orgânica
+// /regularizacao-cbmgo-cercon (mais abrangente e técnica). Reavaliar para
+// noindex se a sobreposição de conteúdo aumentar no futuro.
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: PATH },
   openGraph: { title, description, url: `${SITE_URL}${PATH}` },
+  robots: { index: true, follow: true },
 };
 
 const SITUATIONS = [
@@ -137,7 +141,7 @@ export default function RegularizacaoComercioGoiania() {
         <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
-              Regularização de comércio em Goiânia
+              Regularização de comércio no CBMGO em Goiânia
             </p>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
               Regularização do seu comércio junto ao Corpo de Bombeiros.
@@ -237,13 +241,14 @@ export default function RegularizacaoComercioGoiania() {
         <section className="bg-parchment pb-20">
           <div className="mx-auto max-w-3xl border-t border-brass/30 px-6 pt-16 lg:px-10">
             <h2 className="font-display text-3xl font-bold leading-[1.15] text-espresso sm:text-4xl">
-              João Carlos já conduziu mais de 100 processos aprovados.
+              A Town Fire combina regularização e engenharia aplicada a
+              sistemas críticos.
             </h2>
             <p className="mt-6 text-base leading-relaxed text-charcoal/75">
-              A Town Fire é conduzida por João Carlos Chaves, engenheiro civil
-              com mais de cinco anos em projetos complementares, e Jefferson
-              Jesus, engenheiro mecânico com mais de sete anos em projetos
-              industriais e sistemas críticos.
+              A empresa é conduzida por João Carlos Chaves, engenheiro civil
+              com atuação em projetos e regularização de edificações, e
+              Jefferson Jesus, engenheiro mecânico com experiência em
+              projetos industriais e sistemas críticos.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
               <a

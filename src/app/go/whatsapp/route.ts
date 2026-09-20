@@ -7,18 +7,55 @@ import {
   type WhatsappIntent,
 } from "@/lib/whatsapp";
 
+const ATTRIBUTION_PARAMS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+  "gbraid",
+  "wbraid",
+] as const;
+
 /**
- * Endpoint interno de atribuição dos CTAs de WhatsApp
- * (05_WHATSAPP_CONVERSAO/IMPLEMENTACAO_NUMERO_TOWN_FIRE.md): valida intent e
- * placement, gera lead_ref, registra a atribuição permitida e redireciona
- * para o Click to Chat oficial.
+ * Lê um parâmetro de atribuição com fallback: o CTA que o visitante clicou
+ * pode não carregar os parâmetros da URL de entrada (ex.: um clique no
+ * header depois de navegar pela home não repete o gclid da landing). Ordem:
+ * 1) querystring da própria rota; 2) querystring do referer (a página onde
+ * o clique aconteceu); 3) null. Referer inválido/ausente não quebra nada.
+ */
+function readAttributionParams(
+  routeParams: URLSearchParams,
+  refererUrl: string | null
+): Record<(typeof ATTRIBUTION_PARAMS)[number], string | null> {
+  let refererParams: URLSearchParams | null = null;
+  if (refererUrl) {
+    try {
+      refererParams = new URL(refererUrl).searchParams;
+    } catch {
+      refererParams = null;
+    }
+  }
+
+  const result = {} as Record<
+    (typeof ATTRIBUTION_PARAMS)[number],
+    string | null
+  >;
+  for (const key of ATTRIBUTION_PARAMS) {
+    result[key] = routeParams.get(key) ?? refererParams?.get(key) ?? null;
+  }
+  return result;
+}
+
+/**
+ * Endpoint interno de atribuição dos CTAs de WhatsApp: valida intent e
+ * placement, gera lead_ref, registra a atribuição permitida (com fallback
+ * de referer) e redireciona para o Click to Chat oficial.
  *
- * GCLID, GBRAID, WBRAID e UTMs ficam apenas no log de atribuição. A mensagem
- * visível leva somente o lead_ref, conforme regra do pacote V6.
- *
- * A correlação automática via Meta Cloud API depende de credenciais reais que
- * ainda não existem (whatsapp_config_canonical.json), por isso não há
- * persistência em banco ou CRM aqui.
+ * UTMs e GCLID/GBRAID/WBRAID ficam só no log de atribuição. A mensagem
+ * visível leva somente o lead_ref, sem dado técnico. Não há persistência em
+ * banco ou CRM aqui — isso depende de integração futura.
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -35,20 +72,18 @@ export async function GET(request: NextRequest) {
     .slice(2, 6)
     .toUpperCase()}`;
 
+  const attribution = readAttributionParams(
+    searchParams,
+    request.headers.get("referer")
+  );
+
   console.log(
     "[go/whatsapp]",
     JSON.stringify({
       lead_ref: leadRef,
       intent,
       placement,
-      utm_source: searchParams.get("utm_source"),
-      utm_medium: searchParams.get("utm_medium"),
-      utm_campaign: searchParams.get("utm_campaign"),
-      utm_term: searchParams.get("utm_term"),
-      utm_content: searchParams.get("utm_content"),
-      gclid: searchParams.get("gclid"),
-      gbraid: searchParams.get("gbraid"),
-      wbraid: searchParams.get("wbraid"),
+      ...attribution,
       landing: request.headers.get("referer"),
       ts: new Date().toISOString(),
     })

@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 const NAV = [
-  { href: "#solucoes", label: "Soluções" },
-  { href: "#metodo", label: "Como funciona" },
-  { href: "#engenheiros", label: "Engenheiros" },
+  { href: "/#solucoes", label: "Soluções" },
+  { href: "/#metodo", label: "Como funciona" },
+  { href: "/#engenheiros", label: "Engenheiros" },
 ];
 
 export function MobileNav() {

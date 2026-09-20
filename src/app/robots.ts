@@ -1,45 +1,49 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-config";
 
-// Fonte: 06_TECHNICAL_TEMPLATES/robots.txt.template (pacote V5), ampliado
-// para descoberta máxima em busca tradicional + mecanismos de IA (SEO +
-// GEO/AEO). GPTBot e ClaudeBot (crawlers de treinamento) liberados de
-// propósito: a prioridade atual é exposição, não restrição de uso — ver
-// discussão no PR.
+// Descoberta em busca tradicional + mecanismos generativos (SEO + GEO/AEO).
+// GPTBot e ClaudeBot (crawlers de treinamento) ficam bloqueados: não são
+// necessários para aparecer no ChatGPT Search / Claude — isso é
+// OAI-SearchBot / Claude-SearchBot / Claude-User, que ficam liberados.
+//
+// robots.txt não herda regras entre blocos de user-agent: cada bot com
+// regra própria precisa repetir o disallow das rotas internas, senão um
+// "Allow: /" específico bate por cima do "*" e libera essas rotas.
+const DISALLOWED_PATHS = ["/api/", "/go/", "/admin/"];
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       // Busca tradicional
-      { userAgent: "Googlebot", allow: "/" },
-      { userAgent: "Bingbot", allow: "/" },
+      { userAgent: "Googlebot", allow: "/", disallow: DISALLOWED_PATHS },
+      { userAgent: "Bingbot", allow: "/", disallow: DISALLOWED_PATHS },
 
-      // ChatGPT: OAI-SearchBot indexa para o Search; OAI-AdsBot é para
-      // landing pages de anúncios; GPTBot é treinamento.
-      { userAgent: "OAI-SearchBot", allow: "/" },
-      { userAgent: "OAI-AdsBot", allow: "/" },
-      { userAgent: "GPTBot", allow: "/" },
+      // ChatGPT Search (não confundir com GPTBot, que é treinamento)
+      { userAgent: "OAI-SearchBot", allow: "/", disallow: DISALLOWED_PATHS },
+      { userAgent: "OAI-AdsBot", allow: "/", disallow: DISALLOWED_PATHS },
 
-      // Gemini / ecossistema Google AI (Googlebot já cobre Search e AI
-      // Overviews/AI Mode; Google-Extended controla outros usos no Gemini).
-      { userAgent: "Google-Extended", allow: "/" },
+      // Gemini / AI Overviews e AI Mode já dependem do Googlebot acima;
+      // Google-Extended controla outros usos do conteúdo no ecossistema Gemini.
+      { userAgent: "Google-Extended", allow: "/", disallow: DISALLOWED_PATHS },
 
-      // Claude: SearchBot (busca), User (acesso pedido pelo usuário),
-      // ClaudeBot (treinamento).
-      { userAgent: "Claude-SearchBot", allow: "/" },
-      { userAgent: "Claude-User", allow: "/" },
-      { userAgent: "ClaudeBot", allow: "/" },
+      // Claude Search e acesso pedido pelo usuário (não ClaudeBot, treinamento)
+      {
+        userAgent: "Claude-SearchBot",
+        allow: "/",
+        disallow: DISALLOWED_PATHS,
+      },
+      { userAgent: "Claude-User", allow: "/", disallow: DISALLOWED_PATHS },
 
       // Perplexity
-      { userAgent: "PerplexityBot", allow: "/" },
-      { userAgent: "Perplexity-User", allow: "/" },
+      { userAgent: "PerplexityBot", allow: "/", disallow: DISALLOWED_PATHS },
 
-      // Demais crawlers — bloqueia apenas rotas internas (redirect de
-      // atribuição do WhatsApp e áreas sem conteúdo público).
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/api/", "/go/", "/admin/"],
-      },
+      // Crawlers de treinamento de modelo — bloqueados; não são o caminho de
+      // descoberta em busca desses ecossistemas.
+      { userAgent: "GPTBot", disallow: "/" },
+      { userAgent: "ClaudeBot", disallow: "/" },
+
+      // Demais crawlers
+      { userAgent: "*", allow: "/", disallow: DISALLOWED_PATHS },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

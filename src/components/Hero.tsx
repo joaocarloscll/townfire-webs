@@ -8,7 +8,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:px-10 lg:py-28">
         <div>
           <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
-            Engenharia de incêndio e regularização
+            Engenharia de incêndio e regularização junto ao CBMGO
           </p>
 
           <h1 className="mt-5 max-w-xl font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl lg:text-[3.4rem]">
@@ -16,9 +16,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-parchment/80">
-            A Town Fire desenvolve projetos, responde exigências e conduz
-            processos junto ao Corpo de Bombeiros para comércios, galpões e
-            indústrias em Goiânia, Anápolis e região.
+            A Town Fire desenvolve PSCIP, responde exigências e conduz
+            regularizações junto ao CBMGO para comércios, condomínios,
+            galpões e indústrias em Goiânia e região.
           </p>
 
           <WhatsAppLink

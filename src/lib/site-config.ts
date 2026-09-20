@@ -3,17 +3,32 @@
 // sitemap, canonical, OG e JSON-LD — é o www (afeta SEO).
 export const SITE_URL = "https://www.townfire.com.br";
 
-// Dados operacionais reais ainda não confirmados pelo cliente (ver PRODUCT.md
-// "Capabilities and Constraints"). Placeholders explícitos — substituir antes
-// de publicar, nunca preencher com dado inventado. CNPJ: cliente ainda não
-// tem, por isso não aparece em lugar nenhum do site (nada de placeholder).
-// WhatsApp: ver src/lib/whatsapp.ts (fonte canônica, pacote V5).
-// E-mail e redes ainda não confirmados: ficam fora do site público em vez de
-// aparecerem como placeholder para o visitante.
+// Nome institucional completo (usado em <title>, JSON-LD) vs. marca curta
+// (usada na copy corrida do site, em todo o resto). CNPJ ainda não existe
+// (empresa não constituída), por isso não aparece em lugar nenhum do site,
+// nem como placeholder. Endereço comercial: não há um aberto ao público —
+// nunca publicar endereço residencial nem inventar um para schema.
+export const COMPANY_NAME = "Town Fire Engenharia";
+export const BRAND_NAME = "Town Fire";
+
+// WhatsApp: ver src/lib/whatsapp.ts (fonte canônica).
+export const INSTAGRAM_URL = "https://www.instagram.com/townfire.eng/";
+
+// Áreas de atendimento confirmadas. Usar "Goiânia e região" na copy corrida;
+// a lista completa fica reservada para footer/schema (não fazer keyword
+// stuffing de cidade em cada parágrafo).
 export const siteConfig = {
-  serviceCities: ["Goiânia", "Anápolis"],
-  serviceArea: "Goiânia, Anápolis e região",
+  serviceCities: [
+    "Goiânia",
+    "Aparecida de Goiânia",
+    "Anápolis",
+    "Senador Canedo",
+    "Trindade",
+    "Hidrolândia",
+  ],
+  serviceArea: "Goiânia e região",
 } as const;
 
-// Google Analytics (GA4). Script carregado em src/app/layout.tsx.
+// Google Analytics (GA4). Carregado por src/components/Analytics.tsx somente
+// após consentimento de medição (ver src/lib/consent.ts).
 export const GA_MEASUREMENT_ID = "G-7VSW42JTD9";

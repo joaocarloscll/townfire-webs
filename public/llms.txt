@@ -1,30 +1,52 @@
-# Town Fire
+# Town Fire Engenharia
 
-> Engenharia de segurança contra incêndio e regularização junto ao Corpo de Bombeiros em Goiânia, Anápolis e região.
+> Empresa de engenharia especializada em segurança contra incêndio e regularização de edificações junto ao CBMGO em Goiânia e região.
 
 ## Sobre
 
-A Town Fire desenvolve projetos de segurança contra incêndio, responde exigências e conduz processos de regularização junto ao Corpo de Bombeiros para comércios, galpões e indústrias.
+A Town Fire Engenharia desenvolve projetos de segurança contra incêndio, PSCIP, regularização de edificações, análise de exigências, vistorias e documentação técnica relacionada à segurança contra incêndio.
 
-## Serviços
+Atende principalmente comércios, condomínios, galpões, indústrias e outros empreendimentos.
 
-- Projeto de Incêndio — projeto técnico das medidas de segurança contra incêndio exigidas para o imóvel.
-- PSCIP (Projeto de Segurança Contra Incêndio e Pânico) — documento técnico exigido pelo Corpo de Bombeiros.
-- AVCB — acompanhamento técnico para emissão ou renovação do Auto de Vistoria do Corpo de Bombeiros.
-- CLCB — regularização simplificada para imóveis que se enquadram nesse procedimento.
-- Regularização completa — análise, projeto, documentação, protocolo e acompanhamento do processo.
-- Vistoria e Laudo Técnico — inspeção dos sistemas existentes, com testes e emissão de laudo técnico.
+## Principais temas
+
+- Projeto de prevenção e combate a incêndio
+- PSCIP
+- Regularização junto ao CBMGO
+- CERCON
+- Licenciamento Facilitado
+- Vistoria e laudo técnico de segurança contra incêndio
+- Sistemas de recarga de veículos eletrificados
+- SAVE
+- Segurança contra incêndio em sistemas fotovoltaicos
+
+## Páginas principais
+
+- Home: https://www.townfire.com.br/
+- Projeto e PSCIP: https://www.townfire.com.br/projeto-de-incendio-pscip
+- Regularização CBMGO e CERCON: https://www.townfire.com.br/regularizacao-cbmgo-cercon
+- SAVE e veículos elétricos: https://www.townfire.com.br/save-carregadores-veiculos-eletricos
+- Sistemas fotovoltaicos: https://www.townfire.com.br/sistema-fotovoltaico-cbmgo
 
 ## Área de atendimento
 
 - Goiânia, Goiás
+- Aparecida de Goiânia, Goiás
+- Senador Canedo, Goiás
+- Trindade, Goiás
+- Hidrolândia, Goiás
 - Anápolis, Goiás
-- Região metropolitana
 
-## Links oficiais
+## Contato
 
-- Site: https://www.townfire.com.br/
-- WhatsApp: https://wa.me/5562992292257
+Site:
+https://www.townfire.com.br/
+
+Instagram:
+https://www.instagram.com/townfire.eng/
+
+WhatsApp:
+https://wa.me/5562992292257
 
 ## Idioma
 
@@ -32,4 +54,4 @@ Português do Brasil.
 
 ## Fonte oficial
 
-As páginas publicadas em https://www.townfire.com.br/ são a fonte oficial e atualizada das informações comerciais e técnicas da Town Fire.
+As páginas publicadas em https://www.townfire.com.br/ são a fonte oficial das informações comerciais e técnicas da Town Fire Engenharia.
