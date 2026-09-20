@@ -95,7 +95,7 @@ export default function RegularizacaoCbmgoCercon() {
       <Header />
 
       <main className="flex-1">
-        <section className="bg-espresso py-20 text-parchment lg:py-28">
+        <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
               Regularização junto ao CBMGO
@@ -184,6 +184,7 @@ export default function RegularizacaoCbmgoCercon() {
                   norma: "NT-01/2026",
                   titulo:
                     "Procedimentos Administrativos e Medidas de Segurança Contra Incêndio e Pânico",
+                  url: "https://www.bombeiros.go.gov.br/wp-content/uploads/2026/05/NT-01_2026_-_Procedimentos_Administrativos.pdf",
                 },
               ]}
             />
@@ -217,12 +218,13 @@ export default function RegularizacaoCbmgoCercon() {
             </ol>
 
             <p className="mt-10 max-w-md border-t border-brass/30 pt-8 text-base leading-relaxed text-parchment/70">
-              O caminho geralmente começa pelo{" "}
+              Quando o enquadramento exige projeto, conheça como
+              desenvolvemos o{" "}
               <Link
                 href="/projeto-de-incendio-pscip"
                 className="text-rose underline decoration-rose/40 underline-offset-2 hover:text-rose-strong"
               >
-                projeto de incêndio e PSCIP
+                PSCIP
               </Link>
               .
             </p>
@@ -234,18 +236,8 @@ export default function RegularizacaoCbmgoCercon() {
             <h2 className="font-display text-3xl font-bold leading-[1.15] text-espresso sm:text-4xl">
               Perguntas frequentes
             </h2>
-            <WhatsAppLink
-              intent="regularizacao_cbmgo"
-              placement="regularizacao_cbmgo_final"
-              className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Analisar minha regularização
-            </WhatsAppLink>
-            <p className="mt-6 text-sm text-charcoal/60">
-              WhatsApp oficial: {WHATSAPP_DISPLAY}
-            </p>
 
-            <dl className="mt-14 divide-y divide-brass/25 border-t border-brass/25">
+            <dl className="mt-10 divide-y divide-brass/25 border-t border-brass/25">
               {FAQ.map((item) => (
                 <div key={item.q} className="py-6">
                   <dt className="font-display text-base font-semibold text-espresso">
@@ -257,6 +249,17 @@ export default function RegularizacaoCbmgoCercon() {
                 </div>
               ))}
             </dl>
+
+            <WhatsAppLink
+              intent="regularizacao_cbmgo"
+              placement="regularizacao_cbmgo_final"
+              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
+            >
+              Analisar minha regularização
+            </WhatsAppLink>
+            <p className="mt-6 text-sm text-charcoal/60">
+              WhatsApp oficial: {WHATSAPP_DISPLAY}
+            </p>
           </div>
         </section>
       </main>

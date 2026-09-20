@@ -87,7 +87,7 @@ export default function SaveCarregadoresVeiculosEletricos() {
       <Header />
 
       <main className="flex-1">
-        <section className="bg-espresso py-20 text-parchment lg:py-28">
+        <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
               SAVE e veículos elétricos
@@ -160,18 +160,8 @@ export default function SaveCarregadoresVeiculosEletricos() {
             <h2 className="font-display text-3xl font-bold leading-[1.15] text-espresso sm:text-4xl">
               Perguntas frequentes
             </h2>
-            <WhatsAppLink
-              intent="save_veiculos_eletricos"
-              placement="save_final"
-              className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Avaliar meu sistema de recarga
-            </WhatsAppLink>
-            <p className="mt-6 text-sm text-charcoal/60">
-              WhatsApp oficial: {WHATSAPP_DISPLAY}
-            </p>
 
-            <dl className="mt-14 divide-y divide-brass/25 border-t border-brass/25">
+            <dl className="mt-10 divide-y divide-brass/25 border-t border-brass/25">
               {FAQ.map((item) => (
                 <div key={item.q} className="py-6">
                   <dt className="font-display text-base font-semibold text-espresso">
@@ -183,6 +173,17 @@ export default function SaveCarregadoresVeiculosEletricos() {
                 </div>
               ))}
             </dl>
+
+            <WhatsAppLink
+              intent="save_veiculos_eletricos"
+              placement="save_final"
+              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
+            >
+              Avaliar meu sistema de recarga
+            </WhatsAppLink>
+            <p className="mt-6 text-sm text-charcoal/60">
+              WhatsApp oficial: {WHATSAPP_DISPLAY}
+            </p>
 
             <p className="mt-10 max-w-md text-base leading-relaxed text-charcoal/70">
               A adequação de carregadores costuma andar junto com a{" "}
@@ -201,6 +202,7 @@ export default function SaveCarregadoresVeiculosEletricos() {
                   norma: "NT-45/2026",
                   titulo: "Sistemas de Recarga de Veículos Eletrificados",
                   vigencia: "em vigor desde 01/06/2026",
+                  url: "https://www.bombeiros.go.gov.br/wp-content/uploads/2026/05/NT-45_2026_-_Sistema_de_recarga_para_veiculos_eletrificados.pdf",
                 },
               ]}
             />

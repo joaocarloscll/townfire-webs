@@ -27,6 +27,18 @@ export const LEAD_REF_PREFIX = "TF";
 export const LEAD_REF_TEMPLATE = (ref: string) => `Referência Town Fire: ${ref}`;
 
 /**
+ * lead_ref não é token de segurança (não protege nada, só correlaciona o
+ * log de atribuição com a conversa), mas Math.random() com 4 caracteres
+ * tem risco de colisão real conforme o volume cresce. crypto.randomUUID()
+ * dá entropia de sobra; só o prefixo de 8 caracteres hex vai pra mensagem —
+ * o UUID completo nunca aparece no WhatsApp do lead.
+ */
+export function generateLeadRef(): string {
+  const id = crypto.randomUUID().replace(/-/g, "").slice(0, 8).toUpperCase();
+  return `${LEAD_REF_PREFIX}-${id}`;
+}
+
+/**
  * CTAs apontam para o endpoint interno de atribuição (/go/whatsapp), que gera
  * o lead_ref, registra a atribuição permitida e faz o redirect 302 para o
  * wa.me oficial (05_WHATSAPP_CONVERSAO/IMPLEMENTACAO_NUMERO_TOWN_FIRE.md).

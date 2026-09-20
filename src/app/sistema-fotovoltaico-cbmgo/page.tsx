@@ -78,7 +78,7 @@ export default function SistemaFotovoltaicoCbmgo() {
       <Header />
 
       <main className="flex-1">
-        <section className="bg-espresso py-20 text-parchment lg:py-28">
+        <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
               Fotovoltaico e segurança contra incêndio
@@ -135,18 +135,8 @@ export default function SistemaFotovoltaicoCbmgo() {
             <h2 className="font-display text-3xl font-bold leading-[1.15] sm:text-4xl">
               Perguntas frequentes
             </h2>
-            <WhatsAppLink
-              intent="sistema_fotovoltaico"
-              placement="fotovoltaico_final"
-              className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Avaliar meu sistema fotovoltaico
-            </WhatsAppLink>
-            <p className="mt-6 text-sm text-parchment/60">
-              WhatsApp oficial: {WHATSAPP_DISPLAY}
-            </p>
 
-            <dl className="mt-14 divide-y divide-brass/25 border-t border-brass/25">
+            <dl className="mt-10 divide-y divide-brass/25 border-t border-brass/25">
               {FAQ.map((item) => (
                 <div key={item.q} className="py-6">
                   <dt className="font-display text-base font-semibold">
@@ -158,6 +148,17 @@ export default function SistemaFotovoltaicoCbmgo() {
                 </div>
               ))}
             </dl>
+
+            <WhatsAppLink
+              intent="sistema_fotovoltaico"
+              placement="fotovoltaico_final"
+              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
+            >
+              Avaliar meu sistema fotovoltaico
+            </WhatsAppLink>
+            <p className="mt-6 text-sm text-parchment/60">
+              WhatsApp oficial: {WHATSAPP_DISPLAY}
+            </p>
 
             <p className="mt-10 max-w-md border-t border-brass/25 pt-8 text-base leading-relaxed text-parchment/70">
               A adequação do sistema fotovoltaico costuma andar junto com a{" "}
@@ -179,6 +180,7 @@ export default function SistemaFotovoltaicoCbmgo() {
                 {
                   norma: "NT-44/2025",
                   titulo: "Segurança em Sistemas Fotovoltaicos",
+                  url: "https://www.bombeiros.go.gov.br/wp-content/uploads/2025/02/NT-44-2025_-_Seguranca_em_sistemas_fotovoltaicos.pdf",
                 },
               ]}
             />

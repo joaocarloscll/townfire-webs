@@ -1,7 +1,6 @@
-// Referência normativa discreta para páginas regulatórias. Sem href quando a
-// URL oficial não pôde ser confirmada — nunca inventar link de legislação
-// (ver auditoria no PR: acesso a bombeiros.go.gov.br não pôde ser verificado
-// a partir deste ambiente).
+// Referência normativa discreta para páginas regulatórias. `url` é opcional
+// de propósito: sem href quando a URL oficial não puder ser confirmada —
+// nunca inventar link de legislação.
 export function TechnicalReference({
   items,
 }: {

@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  LEAD_REF_PREFIX,
   LEAD_REF_TEMPLATE,
   WHATSAPP_E164,
   WHATSAPP_INTENTS,
+  generateLeadRef,
   type WhatsappIntent,
 } from "@/lib/whatsapp";
 
@@ -17,6 +17,18 @@ const ATTRIBUTION_PARAMS = [
   "gbraid",
   "wbraid",
 ] as const;
+
+// Limite defensivo de tamanho antes de escrever no log: evita payload
+// absurdamente grande vindo de querystring manipulada. JSON.stringify já
+// escapa aspas/quebras de linha dentro dos valores, então isso é só sobre
+// tamanho, não sobre caracteres especiais.
+const MAX_PARAM_LENGTH = 200;
+const MAX_LANDING_LENGTH = 300;
+
+function truncate(value: string | null, maxLength: number): string | null {
+  if (!value) return null;
+  return value.length > maxLength ? value.slice(0, maxLength) : value;
+}
 
 /**
  * Lê um parâmetro de atribuição com fallback: o CTA que o visitante clicou
@@ -43,9 +55,26 @@ function readAttributionParams(
     string | null
   >;
   for (const key of ATTRIBUTION_PARAMS) {
-    result[key] = routeParams.get(key) ?? refererParams?.get(key) ?? null;
+    const value = routeParams.get(key) ?? refererParams?.get(key) ?? null;
+    result[key] = truncate(value, MAX_PARAM_LENGTH);
   }
   return result;
+}
+
+/**
+ * Reduz o referer a origin + pathname (ex.: "https://www.townfire.com.br/
+ * regularizacao-cbmgo-cercon") para o campo "landing" do log. A querystring
+ * completa nunca é gravada ali — os únicos parâmetros persistidos são os da
+ * whitelist de atribuição acima, cada um no seu próprio campo.
+ */
+function sanitizeLandingUrl(refererUrl: string | null): string | null {
+  if (!refererUrl) return null;
+  try {
+    const url = new URL(refererUrl);
+    return truncate(`${url.origin}${url.pathname}`, MAX_LANDING_LENGTH);
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -53,9 +82,10 @@ function readAttributionParams(
  * placement, gera lead_ref, registra a atribuição permitida (com fallback
  * de referer) e redireciona para o Click to Chat oficial.
  *
- * UTMs e GCLID/GBRAID/WBRAID ficam só no log de atribuição. A mensagem
- * visível leva somente o lead_ref, sem dado técnico. Não há persistência em
- * banco ou CRM aqui — isso depende de integração futura.
+ * Privacidade: só a whitelist de UTM/GCLID acima e o path de origem (sem
+ * querystring) vão para o log — nunca IP, user-agent, cookies ou dado
+ * pessoal. A mensagem visível no WhatsApp leva somente o lead_ref. Não há
+ * persistência em banco ou CRM aqui — isso depende de integração futura.
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -67,15 +97,9 @@ export async function GET(request: NextRequest) {
       ? (intentParam as WhatsappIntent)
       : "institutional_general";
 
-  const leadRef = `${LEAD_REF_PREFIX}-${Math.random()
-    .toString(36)
-    .slice(2, 6)
-    .toUpperCase()}`;
-
-  const attribution = readAttributionParams(
-    searchParams,
-    request.headers.get("referer")
-  );
+  const leadRef = generateLeadRef();
+  const referer = request.headers.get("referer");
+  const attribution = readAttributionParams(searchParams, referer);
 
   console.log(
     "[go/whatsapp]",
@@ -84,7 +108,7 @@ export async function GET(request: NextRequest) {
       intent,
       placement,
       ...attribution,
-      landing: request.headers.get("referer"),
+      landing: sanitizeLandingUrl(referer),
       ts: new Date().toISOString(),
     })
   );

@@ -34,8 +34,14 @@ export default function robots(): MetadataRoute.Robots {
       },
       { userAgent: "Claude-User", allow: "/", disallow: DISALLOWED_PATHS },
 
-      // Perplexity
+      // Perplexity: PerplexityBot indexa para o Search; Perplexity-User é o
+      // acesso pedido explicitamente por quem usa o Perplexity.
       { userAgent: "PerplexityBot", allow: "/", disallow: DISALLOWED_PATHS },
+      {
+        userAgent: "Perplexity-User",
+        allow: "/",
+        disallow: DISALLOWED_PATHS,
+      },
 
       // Crawlers de treinamento de modelo — bloqueados; não são o caminho de
       // descoberta em busca desses ecossistemas.
