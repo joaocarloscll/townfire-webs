@@ -13,3 +13,6 @@ export const siteConfig = {
   serviceCities: ["Goiânia", "Anápolis"],
   serviceArea: "Goiânia, Anápolis e região",
 } as const;
+
+// Google Analytics (GA4). Script carregado em src/app/layout.tsx.
+export const GA_MEASUREMENT_ID = "G-7VSW42JTD9";
