@@ -24,7 +24,6 @@ export const WHATSAPP_INTENTS = {
 export type WhatsappIntent = keyof typeof WHATSAPP_INTENTS;
 
 export const LEAD_REF_PREFIX = "TF";
-export const LEAD_REF_TEMPLATE = (ref: string) => `Referência Town Fire: ${ref}`;
 
 /**
  * lead_ref não é token de segurança (não protege nada, só correlaciona o
