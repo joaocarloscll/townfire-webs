@@ -148,7 +148,7 @@ export function SolutionsSection() {
                   ) : (
                     <div className="mt-2 flex flex-col items-start gap-1">
                       <WhatsAppLink
-                        intent="institutional_general"
+                        intent="vistoria_laudo"
                         placement={`home_servicos_${service.slug}`}
                         className="inline-flex min-h-[28px] items-center font-display text-xs font-semibold uppercase tracking-[0.06em] text-rose hover:text-rose-strong"
                       >

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  LEAD_REF_TEMPLATE,
   WHATSAPP_E164,
   WHATSAPP_INTENTS,
   generateLeadRef,
@@ -84,7 +83,8 @@ function sanitizeLandingUrl(refererUrl: string | null): string | null {
  *
  * Privacidade: só a whitelist de UTM/GCLID acima e o path de origem (sem
  * querystring) vão para o log — nunca IP, user-agent, cookies ou dado
- * pessoal. A mensagem visível no WhatsApp leva somente o lead_ref. Não há
+ * pessoal. A mensagem visível no WhatsApp leva apenas o texto da intenção, sem
+ * referência, origem ou intenção; o lead_ref fica só no log. Não há
  * persistência em banco ou CRM aqui — isso depende de integração futura.
  */
 export async function GET(request: NextRequest) {
@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
     })
   );
 
-  const message = `${WHATSAPP_INTENTS[intent]} ${LEAD_REF_TEMPLATE(leadRef)}`;
+  const message = WHATSAPP_INTENTS[intent];
   const target = `https://wa.me/${WHATSAPP_E164}?text=${encodeURIComponent(message)}`;
 
   return NextResponse.redirect(target, { status: 302 });

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MobileNav } from "./MobileNav";
 import { WhatsAppLink } from "./WhatsAppLink";
+import type { WhatsappIntent } from "@/lib/whatsapp";
 
 // Âncoras com "/" na frente: funcionam tanto na home (só rola até a seção,
 // sem reload — mesmo documento) quanto em qualquer outra página (navega até
@@ -12,7 +13,15 @@ export const NAV = [
   { href: "/#engenheiros", label: "Engenheiros" },
 ];
 
-export function Header() {
+// O CTA do header herda a intenção da página onde está: na home é o contato
+// institucional; nas páginas de serviço, o assunto daquela página.
+export function Header({
+  intent = "institutional_header",
+  placement = "home_header",
+}: {
+  intent?: WhatsappIntent;
+  placement?: string;
+} = {}) {
   return (
     <header className="sticky top-0 z-20 border-b border-brass/30 bg-espresso/95 backdrop-blur supports-[backdrop-filter]:bg-espresso/90 relative">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:gap-6 lg:px-8 xl:px-10">
@@ -44,8 +53,8 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-4">
           <WhatsAppLink
-            intent="institutional_header"
-            placement="home_header"
+            intent={intent}
+            placement={placement}
             className="hidden min-h-[44px] items-center rounded-full bg-rose px-5 font-display text-xs font-semibold uppercase tracking-[0.04em] text-espresso transition-colors hover:bg-rose-strong sm:inline-flex"
           >
             Falar com a Town Fire

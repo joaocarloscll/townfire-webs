@@ -17,6 +17,8 @@ export const WHATSAPP_INTENTS = {
     "Olá, vim pelo site da Town Fire e quero analisar a regularização do meu imóvel junto ao CBMGO. Cidade: [preencher]. Atividade: [preencher]. Situação atual: [preencher].",
   save_veiculos_eletricos:
     "Olá, vim pelo site da Town Fire e quero analisar os carregadores de veículos elétricos do meu imóvel. Cidade: [preencher]. Tipo de imóvel: [condomínio, empresa, estacionamento...]. Quantidade de pontos de recarga: [preencher].",
+  vistoria_laudo:
+    "Olá, vim pelo site da Town Fire e quero solicitar uma vistoria e laudo técnico do meu imóvel. Cidade: [preencher]. Atividade: [preencher]. Área aproximada: [preencher].",
   sistema_fotovoltaico:
     "Olá, vim pelo site da Town Fire e quero analisar o sistema fotovoltaico do meu imóvel. Cidade: [preencher]. Situação: [sistema existente ou nova instalação].",
 } as const;
@@ -24,7 +26,6 @@ export const WHATSAPP_INTENTS = {
 export type WhatsappIntent = keyof typeof WHATSAPP_INTENTS;
 
 export const LEAD_REF_PREFIX = "TF";
-export const LEAD_REF_TEMPLATE = (ref: string) => `Referência Town Fire: ${ref}`;
 
 /**
  * lead_ref não é token de segurança (não protege nada, só correlaciona o

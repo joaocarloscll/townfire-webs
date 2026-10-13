@@ -75,7 +75,7 @@ export default function SistemaFotovoltaicoCbmgo() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Header />
+      <Header intent="sistema_fotovoltaico" placement="fotovoltaico_header" />
 
       <main className="flex-1">
         <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
