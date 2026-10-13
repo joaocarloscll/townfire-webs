@@ -92,7 +92,7 @@ export default function RegularizacaoCbmgoCercon() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <Header />
+      <Header intent="regularizacao_cbmgo" placement="regularizacao_cbmgo_header" />
 
       <main className="flex-1">
         <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
