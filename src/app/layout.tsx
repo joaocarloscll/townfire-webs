@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
+import { ClickTracker } from "@/components/ClickTracker";
 import { ConsentBanner } from "@/components/ConsentBanner";
 import {
   COMPANY_NAME,
@@ -134,6 +135,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-parchment text-charcoal">
         {children}
         <Analytics />
+        <ClickTracker />
         <ConsentBanner />
       </body>
     </html>

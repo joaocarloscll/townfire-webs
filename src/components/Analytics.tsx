@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
-import { GA_MEASUREMENT_ID } from "@/lib/site-config";
+import { GA_MEASUREMENT_ID, GTM_ID } from "@/lib/site-config";
 import {
   CONSENT_CHANGE_EVENT,
   getStoredConsent,
@@ -46,8 +46,9 @@ function clearAnalyticsCookies() {
  * GA4 sob Google Consent Mode v2: define os quatro sinais como "denied" por
  * padrão assim que a página carrega (antes de qualquer script do Google),
  * e só carrega o gtag.js quando o visitante permite medição. Publicidade
- * (ad_storage/ad_user_data/ad_personalization) fica sempre "denied" nesta
- * etapa — não existe Google Ads/GTM ainda.
+ * (ad_storage/ad_user_data/ad_personalization) fica sempre "denied" até
+ * existir uma categoria de publicidade no banner (ver
+ * docs/tracking-architecture.md).
  *
  * Revogação (granted → denied): abordagem conservadora. gtag.js, uma vez
  * carregado, continua executando na página atual — atualizar o sinal de
@@ -66,8 +67,11 @@ export function Analytics() {
     window.dataLayer = window.dataLayer || [];
     window.gtag =
       window.gtag ||
-      function gtag(...args: unknown[]) {
-        window.dataLayer.push(args);
+      function gtag() {
+        // O gtag.js e o GTM só reconhecem comandos empurrados como o objeto
+        // `arguments`; um array (rest args) é ignorado silenciosamente.
+        // eslint-disable-next-line prefer-rest-params
+        window.dataLayer.push(arguments);
       };
 
     window.gtag("consent", "default", {
@@ -100,6 +104,16 @@ export function Analytics() {
   }, []);
 
   if (!loadScript) return null;
+
+  // Com GTM, o container carrega no lugar do gtag.js e o GA4 passa a ser
+  // configurado lá dentro (tag de configuração do GA4 no container).
+  if (GTM_ID) {
+    return (
+      <Script id="gtm-container" strategy="afterInteractive">
+        {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
+      </Script>
+    );
+  }
 
   return (
     <Script
