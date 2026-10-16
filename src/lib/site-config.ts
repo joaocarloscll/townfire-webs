@@ -32,3 +32,10 @@ export const siteConfig = {
 // Google Analytics (GA4). Carregado por src/components/Analytics.tsx somente
 // após consentimento de medição (ver src/lib/consent.ts).
 export const GA_MEASUREMENT_ID = "G-7VSW42JTD9";
+
+// Google Tag Manager (opcional). Defina NEXT_PUBLIC_GTM_ID (ex.: GTM-XXXXXXX)
+// no ambiente de build para ativar. Com GTM ativo, o container passa a
+// carregar no lugar do gtag.js direto — a configuração do GA4 e das
+// conversões vive então no GTM (ver docs/tracking-architecture.md). O
+// carregamento continua condicionado ao consentimento de medição.
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID ?? "";
