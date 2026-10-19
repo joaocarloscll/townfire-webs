@@ -7,6 +7,7 @@ const NAV = [
   { href: "/#solucoes", label: "Soluções" },
   { href: "/#metodo", label: "Como funciona" },
   { href: "/#engenheiros", label: "Engenheiros" },
+  { href: "/blog", label: "Guias" },
 ];
 
 // Precisa bater com o id do alvo do portal em Header.tsx.

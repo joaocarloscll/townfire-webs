@@ -11,6 +11,7 @@ export const NAV = [
   { href: "/#solucoes", label: "Soluções" },
   { href: "/#metodo", label: "Como funciona" },
   { href: "/#engenheiros", label: "Engenheiros" },
+  { href: "/blog", label: "Guias" },
 ];
 
 // O CTA do header herda a intenção da página onde está: na home é o contato

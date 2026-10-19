@@ -12,6 +12,7 @@ const TECHNICAL_NAV = [
     label: "SAVE e veículos elétricos",
   },
   { href: "/sistema-fotovoltaico-cbmgo", label: "Sistemas fotovoltaicos" },
+  { href: "/blog", label: "Guias" },
 ];
 
 const linkClassName =
