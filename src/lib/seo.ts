@@ -39,3 +39,16 @@ export function pageSocial({
     },
   };
 }
+
+// FAQPage espelhando as perguntas visíveis da página (mesmo array `FAQ` que
+// renderiza o <dl>): o marcador só pode conter o que o visitante lê.
+export function faqPageSchema(items: ReadonlyArray<{ q: string; a: string }>) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}

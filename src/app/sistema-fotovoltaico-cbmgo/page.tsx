@@ -7,7 +7,7 @@ import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { TechnicalReference } from "@/components/TechnicalReference";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
-import { pageSocial } from "@/lib/seo";
+import { faqPageSchema, pageSocial } from "@/lib/seo";
 
 const PATH = "/sistema-fotovoltaico-cbmgo";
 const title = "Regularização de Sistema Fotovoltaico no CBMGO";
@@ -39,6 +39,7 @@ const FAQ = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    faqPageSchema(FAQ),
     {
       "@type": "Service",
       "@id": `${SITE_URL}${PATH}#service`,

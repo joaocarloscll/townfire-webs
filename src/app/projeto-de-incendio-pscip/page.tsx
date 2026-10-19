@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
-import { pageSocial } from "@/lib/seo";
+import { faqPageSchema, pageSocial } from "@/lib/seo";
 
 const PATH = "/projeto-de-incendio-pscip";
 const title = "Projeto de Incêndio e PSCIP para o CBMGO";
@@ -57,6 +57,7 @@ const FAQ = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    faqPageSchema(FAQ),
     {
       "@type": "Service",
       "@id": `${SITE_URL}${PATH}#service`,
