@@ -7,6 +7,7 @@ import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { TechnicalReference } from "@/components/TechnicalReference";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
+import { faqPageSchema, pageSocial } from "@/lib/seo";
 
 const PATH = "/sistema-fotovoltaico-cbmgo";
 const title = "Regularização de Sistema Fotovoltaico no CBMGO";
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: PATH },
-  openGraph: { title, description, url: `${SITE_URL}${PATH}` },
+  ...pageSocial({ title, description, path: PATH }),
 };
 
 const FAQ = [
@@ -38,6 +39,7 @@ const FAQ = [
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    faqPageSchema(FAQ),
     {
       "@type": "Service",
       "@id": `${SITE_URL}${PATH}#service`,
