@@ -30,6 +30,11 @@ Atende principalmente comércios, condomínios, galpões, indústrias e outros e
 - Sistemas fotovoltaicos: https://www.townfire.com.br/sistema-fotovoltaico-cbmgo — análise de segurança contra incêndio para edificações com sistemas fotovoltaicos conforme a NT-44/2025 do CBMGO.
 - Política de privacidade: https://www.townfire.com.br/politica-de-privacidade
 
+## Guias
+
+- Guias e passo a passo sobre regularização e segurança contra incêndio em Goiás: https://www.townfire.com.br/blog
+- Feed RSS: https://www.townfire.com.br/blog/feed.xml
+
 ## Área de atendimento
 
 - Goiânia, Goiás
