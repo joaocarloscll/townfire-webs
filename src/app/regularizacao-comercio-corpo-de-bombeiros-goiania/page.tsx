@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL } from "@/lib/site-config";
+import { pageSocial } from "@/lib/seo";
 
 const PATH = "/regularizacao-comercio-corpo-de-bombeiros-goiania";
 
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: PATH },
-  openGraph: { title, description, url: `${SITE_URL}${PATH}` },
+  ...pageSocial({ title, description, path: PATH }),
   robots: { index: true, follow: true },
 };
 

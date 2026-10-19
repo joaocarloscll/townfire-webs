@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
+import { pageSocial } from "@/lib/seo";
 
 const PATH = "/projeto-de-incendio-pscip";
 const title = "Projeto de Incêndio e PSCIP para o CBMGO";
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: PATH },
-  openGraph: { title, description, url: `${SITE_URL}${PATH}` },
+  ...pageSocial({ title, description, path: PATH }),
 };
 
 const MEASURES = [
