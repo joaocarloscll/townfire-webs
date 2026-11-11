@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
@@ -9,7 +9,7 @@ import { SITE_URL, siteConfig } from "@/lib/site-config";
 import { faqPageSchema, pageSocial } from "@/lib/seo";
 
 const PATH = "/projeto-de-incendio-pscip";
-const title = "Projeto de Incêndio e PSCIP para o CBMGO";
+const title = "Projeto de Incêndio e PSCIP em Goiânia";
 const description =
   "Projeto de incêndio e PSCIP para regularização de comércios, condomínios, galpões e indústrias junto ao CBMGO em Goiânia e região.";
 
@@ -104,21 +104,21 @@ export default function ProjetoDeIncendioPscip() {
               Projeto de incêndio e PSCIP
             </p>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
-              O projeto começa pelo enquadramento correto do imóvel.
+              Projeto de incêndio e PSCIP em Goiânia
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-parchment/80">
+            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-snug text-parchment/90 sm:text-2xl">
+              O projeto começa pelo enquadramento correto do imóvel.
+            </p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-parchment/80">
               Área, ocupação, altura, riscos e configuração da edificação
               definem quais medidas de segurança contra incêndio precisam ser
               previstas. A Town Fire transforma essa leitura técnica em um
               PSCIP compatível com o processo de regularização no CBMGO.
             </p>
-            <WhatsAppLink
+            <QuoteCta
               intent="projeto_pscip"
               placement="projeto_pscip_hero"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-7 font-display text-sm font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Analisar meu imóvel
-            </WhatsAppLink>
+            />
           </div>
         </section>
 
@@ -215,13 +215,11 @@ export default function ProjetoDeIncendioPscip() {
               ))}
             </dl>
 
-            <WhatsAppLink
+            <QuoteCta
               intent="projeto_pscip"
               placement="projeto_pscip_final"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Enviar meu caso para análise
-            </WhatsAppLink>
+              size="final"
+            />
             <p className="mt-6 text-sm text-parchment/60">
               WhatsApp oficial: {WHATSAPP_DISPLAY}
             </p>
@@ -233,7 +231,7 @@ export default function ProjetoDeIncendioPscip() {
       <MobileStickyCta
         intent="projeto_pscip"
         placement="projeto_pscip_sticky"
-        label="Falar com a Town Fire"
+        label="Solicitar orçamento pelo WhatsApp"
       />
     </>
   );

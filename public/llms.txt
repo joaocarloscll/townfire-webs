@@ -16,6 +16,7 @@ Atende principalmente comércios, condomínios, galpões, indústrias e outros e
 - CERCON
 - Licenciamento Facilitado
 - Vistoria e laudo técnico de segurança contra incêndio
+- Vistoria contra incêndio para condomínios
 - Sistemas de recarga de veículos eletrificados
 - SAVE
 - Segurança contra incêndio em sistemas fotovoltaicos
@@ -25,6 +26,7 @@ Atende principalmente comércios, condomínios, galpões, indústrias e outros e
 - Home: https://www.townfire.com.br/ — visão geral dos serviços, do método de trabalho e da equipe de engenheiros.
 - Projeto e PSCIP: https://www.townfire.com.br/projeto-de-incendio-pscip — projeto de incêndio e PSCIP para regularização de comércios, condomínios, galpões e indústrias junto ao CBMGO.
 - Regularização CBMGO e CERCON: https://www.townfire.com.br/regularizacao-cbmgo-cercon — regularização de edificações junto ao CBMGO, análise de pendências, adequações e acompanhamento para obtenção ou renovação do CERCON.
+- Vistoria contra incêndio para condomínios: https://www.townfire.com.br/regularizacao-cbmgo-cercon#vistoria-condominios — vistoria de garagens e áreas comuns, verificação dos sistemas de segurança contra incêndio e lista de adequações para síndicos e administradoras, conforme o serviço contratado.
 - Regularização de comércio em Goiânia: https://www.townfire.com.br/regularizacao-comercio-corpo-de-bombeiros-goiania — análise do imóvel, documentação, PSCIP, exigências e acompanhamento das etapas contratadas para comércios em Goiânia.
 - SAVE e veículos elétricos: https://www.townfire.com.br/save-carregadores-veiculos-eletricos — análise e regularização de sistemas de recarga de veículos eletrificados conforme a NT-45/2026 do CBMGO.
 - Sistemas fotovoltaicos: https://www.townfire.com.br/sistema-fotovoltaico-cbmgo — análise de segurança contra incêndio para edificações com sistemas fotovoltaicos conforme a NT-44/2025 do CBMGO.

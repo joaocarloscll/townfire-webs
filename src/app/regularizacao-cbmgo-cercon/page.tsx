@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { TechnicalReference } from "@/components/TechnicalReference";
@@ -10,9 +10,9 @@ import { SITE_URL, siteConfig } from "@/lib/site-config";
 import { faqPageSchema, pageSocial } from "@/lib/seo";
 
 const PATH = "/regularizacao-cbmgo-cercon";
-const title = "Regularização no CBMGO e CERCON";
+const title = "Regularização no Corpo de Bombeiros e CERCON em Goiânia";
 const description =
-  "Regularização de edificações junto ao CBMGO, análise de pendências, PSCIP, adequações e acompanhamento para obtenção ou renovação do CERCON.";
+  "Regularização no CBMGO e CERCON em Goiânia e região: análise de pendências, PSCIP, adequações e vistoria contra incêndio para condomínios.";
 
 export const metadata: Metadata = {
   title,
@@ -38,6 +38,33 @@ const STEPS = [
   "Processo e exigências previstas no escopo",
 ];
 
+const CONDO_AREAS = [
+  "Garagens e estacionamentos",
+  "Halls, corredores e escadas",
+  "Casa de bombas, casa de máquinas e áreas técnicas",
+  "Salão de festas, academia e áreas de lazer",
+  "Central de gás e depósitos",
+  "Pontos de recarga de veículos elétricos, quando houver",
+];
+
+const CONDO_SYSTEMS = [
+  "Extintores",
+  "Hidrantes e mangotinhos",
+  "Iluminação de emergência",
+  "Sinalização de emergência",
+  "Saídas, rotas de fuga e portas corta-fogo",
+  "Detecção e alarme de incêndio",
+  "Chuveiros automáticos, quando existentes",
+  "Central de GLP e rede de gás",
+];
+
+const CONDO_DELIVERABLES = [
+  "Relatório da vistoria com a condição de cada sistema verificado",
+  "Lista das adequações necessárias, em ordem de prioridade",
+  "Indicação de quando o caso pede projeto (PSCIP)",
+  "Orientação sobre o caminho de regularização no CBMGO e o CERCON",
+];
+
 const FAQ = [
   {
     q: "Posso regularizar um imóvel que já está funcionando?",
@@ -46,6 +73,10 @@ const FAQ = [
   {
     q: "Recebi uma exigência do Corpo de Bombeiros. E agora?",
     a: "Envie o documento. A exigência precisa ser analisada tecnicamente para identificar o que deve ser corrigido, complementado ou esclarecido.",
+  },
+  {
+    q: "A Town Fire faz vistoria em condomínio?",
+    a: "Sim. A vistoria avalia garagens e áreas comuns e verifica os sistemas de segurança contra incêndio. O que o síndico recebe depende do serviço contratado e é definido no orçamento.",
   },
   {
     q: "CERCON e PSCIP são a mesma coisa?",
@@ -77,7 +108,7 @@ const jsonLd = {
         {
           "@type": "ListItem",
           position: 2,
-          name: "Regularização no CBMGO e CERCON",
+          name: "Regularização no Corpo de Bombeiros e CERCON",
           item: `${SITE_URL}${PATH}`,
         },
       ],
@@ -103,22 +134,22 @@ export default function RegularizacaoCbmgoCercon() {
               Regularização junto ao CBMGO
             </p>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
+              Regularização no Corpo de Bombeiros e CERCON em Goiânia
+            </h1>
+            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-snug text-parchment/90 sm:text-2xl">
               Regularizar não começa no protocolo. Começa entendendo a
               situação do imóvel.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-parchment/80">
+            </p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-parchment/80">
               A Town Fire analisa a edificação, identifica o procedimento
               aplicável e organiza o caminho técnico entre a situação atual e
               a regularização junto ao Corpo de Bombeiros Militar do Estado
               de Goiás.
             </p>
-            <WhatsAppLink
+            <QuoteCta
               intent="regularizacao_cbmgo"
               placement="regularizacao_cbmgo_hero"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-7 font-display text-sm font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Entender o que está faltando
-            </WhatsAppLink>
+            />
           </div>
         </section>
 
@@ -193,6 +224,72 @@ export default function RegularizacaoCbmgoCercon() {
           </div>
         </section>
 
+        <section
+          id="vistoria-condominios"
+          className="scroll-mt-20 border-y border-brass/30 bg-white py-20"
+        >
+          <div className="mx-auto max-w-4xl px-6 lg:px-10">
+            <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-rose-strong">
+              Para síndicos e administradoras
+            </p>
+            <h2 className="mt-4 font-display text-3xl font-bold leading-[1.15] text-espresso sm:text-4xl">
+              Vistoria contra incêndio para condomínios
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-charcoal/75">
+              Em condomínios residenciais e comerciais, a Town Fire vistoria
+              as garagens e as áreas comuns, verifica os sistemas de
+              segurança contra incêndio e organiza o que precisa de atenção
+              para manter o condomínio regular junto ao CBMGO.
+            </p>
+
+            <div className="mt-10 grid grid-cols-1 gap-px border border-brass/30 bg-brass/30 md:grid-cols-3">
+              {[
+                { titulo: "Onde avaliamos", itens: CONDO_AREAS },
+                { titulo: "Sistemas no escopo", itens: CONDO_SYSTEMS },
+                {
+                  titulo: "O que o síndico recebe",
+                  itens: CONDO_DELIVERABLES,
+                },
+              ].map((bloco) => (
+                <div key={bloco.titulo} className="bg-white p-6">
+                  <h3 className="font-display text-base font-semibold text-espresso">
+                    {bloco.titulo}
+                  </h3>
+                  <ul className="mt-4 space-y-2.5">
+                    {bloco.itens.map((item) => (
+                      <li
+                        key={item}
+                        className="relative pl-5 text-sm leading-relaxed text-charcoal/75 before:absolute before:left-0 before:top-[0.6em] before:h-1.5 before:w-1.5 before:rounded-[2px] before:bg-rose"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-charcoal/60">
+              O conteúdo da entrega depende do serviço contratado e é
+              definido no orçamento. Se a garagem tem carregadores de
+              veículos elétricos, veja também a{" "}
+              <Link
+                href="/save-carregadores-veiculos-eletricos"
+                className="text-rose-strong underline decoration-rose/40 underline-offset-2 hover:text-espresso"
+              >
+                regularização de carregadores
+              </Link>
+              .
+            </p>
+
+            <QuoteCta
+              intent="vistoria_condominio"
+              placement="regularizacao_cbmgo_condominios"
+              tone="light"
+            />
+          </div>
+        </section>
+
         <section className="bg-espresso py-20 text-parchment">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <h2 className="font-display text-3xl font-bold leading-[1.15] sm:text-4xl">
@@ -252,13 +349,12 @@ export default function RegularizacaoCbmgoCercon() {
               ))}
             </dl>
 
-            <WhatsAppLink
+            <QuoteCta
               intent="regularizacao_cbmgo"
               placement="regularizacao_cbmgo_final"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Analisar minha regularização
-            </WhatsAppLink>
+              size="final"
+              tone="light"
+            />
             <p className="mt-6 text-sm text-charcoal/60">
               WhatsApp oficial: {WHATSAPP_DISPLAY}
             </p>
@@ -270,7 +366,7 @@ export default function RegularizacaoCbmgoCercon() {
       <MobileStickyCta
         intent="regularizacao_cbmgo"
         placement="regularizacao_cbmgo_sticky"
-        label="Falar com a Town Fire"
+        label="Solicitar orçamento pelo WhatsApp"
       />
     </>
   );
