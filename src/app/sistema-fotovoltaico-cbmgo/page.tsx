@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { TechnicalReference } from "@/components/TechnicalReference";
@@ -83,26 +83,26 @@ export default function SistemaFotovoltaicoCbmgo() {
         <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
-              Fotovoltaico e segurança contra incêndio
+              Sistemas fotovoltaicos e CBMGO
             </p>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
+              Segurança contra incêndio para sistemas fotovoltaicos em Goiás
+            </h1>
+            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-snug text-parchment/90 sm:text-2xl">
               A geração solar também altera a leitura de segurança da
               edificação.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-parchment/80">
+            </p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-parchment/80">
               A NT-44/2025 do CBMGO estabelece medidas de segurança contra
               incêndio para edificações e áreas de risco com sistemas
               fotovoltaicos. A Town Fire analisa a situação existente e
               identifica as medidas técnicas e documentais aplicáveis ao
               caso.
             </p>
-            <WhatsAppLink
+            <QuoteCta
               intent="sistema_fotovoltaico"
               placement="fotovoltaico_hero"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-7 font-display text-sm font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Analisar meu sistema fotovoltaico
-            </WhatsAppLink>
+            />
           </div>
         </section>
 
@@ -151,13 +151,11 @@ export default function SistemaFotovoltaicoCbmgo() {
               ))}
             </dl>
 
-            <WhatsAppLink
+            <QuoteCta
               intent="sistema_fotovoltaico"
               placement="fotovoltaico_final"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Avaliar meu sistema fotovoltaico
-            </WhatsAppLink>
+              size="final"
+            />
             <p className="mt-6 text-sm text-parchment/60">
               WhatsApp oficial: {WHATSAPP_DISPLAY}
             </p>
@@ -194,7 +192,7 @@ export default function SistemaFotovoltaicoCbmgo() {
       <MobileStickyCta
         intent="sistema_fotovoltaico"
         placement="fotovoltaico_sticky"
-        label="Falar com a Town Fire"
+        label="Solicitar orçamento pelo WhatsApp"
       />
     </>
   );

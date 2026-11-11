@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
 import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
@@ -11,7 +12,7 @@ import { pageSocial } from "@/lib/seo";
 
 const PATH = "/regularizacao-comercio-corpo-de-bombeiros-goiania";
 
-const title = "Regularização de Comércio no CBMGO em Goiânia";
+const title = "Regularização de Comércio no Corpo de Bombeiros em Goiânia";
 const description =
   "Regularização de comércio junto ao CBMGO em Goiânia. Análise do imóvel, documentação, PSCIP, exigências e acompanhamento das etapas contratadas.";
 
@@ -131,7 +132,7 @@ export default function RegularizacaoComercioGoiania() {
               placement="lp_comercio_header"
               className="inline-flex min-h-[44px] items-center rounded-full bg-rose px-5 font-display text-xs font-semibold uppercase tracking-[0.04em] text-espresso transition-colors hover:bg-rose-strong"
             >
-              Falar com um engenheiro
+              Solicitar orçamento
             </WhatsAppLink>
           </div>
         </div>
@@ -142,26 +143,19 @@ export default function RegularizacaoComercioGoiania() {
         <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
-              Regularização de comércio no CBMGO em Goiânia
+              Lojas, restaurantes, escritórios e galpões
             </p>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
-              Regularização do seu comércio junto ao Corpo de Bombeiros.
+              Regularização de comércio no Corpo de Bombeiros em Goiânia
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-parchment/80">
               A Town Fire analisa o imóvel, identifica o caminho técnico e
               conduz as etapas contratadas para colocar a situação em ordem.
             </p>
-            <WhatsAppLink
+            <QuoteCta
               intent="regularizacao_comercio_goiania"
               placement="lp_comercio_hero"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-7 font-display text-sm font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Entender o que está faltando
-            </WhatsAppLink>
-            <p className="mt-6 max-w-md text-sm leading-relaxed text-parchment/60">
-              Envie atividade, área aproximada e o documento recebido, caso
-              exista.
-            </p>
+            />
           </div>
         </section>
 
@@ -278,13 +272,11 @@ export default function RegularizacaoComercioGoiania() {
             <h2 className="font-display text-3xl font-bold leading-[1.15] sm:text-4xl">
               Envie o que você já sabe. A Town Fire localiza o caminho.
             </h2>
-            <WhatsAppLink
+            <QuoteCta
               intent="regularizacao_comercio_goiania"
               placement="lp_comercio_final"
-              className="mt-8 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Falar com um engenheiro
-            </WhatsAppLink>
+              size="final"
+            />
             <p className="mt-6 text-sm text-parchment/60">
               WhatsApp oficial: {WHATSAPP_DISPLAY}
             </p>
@@ -309,7 +301,7 @@ export default function RegularizacaoComercioGoiania() {
       <MobileStickyCta
         intent="regularizacao_comercio_goiania"
         placement="lp_comercio_sticky"
-        label="Falar com um engenheiro"
+        label="Solicitar orçamento pelo WhatsApp"
       />
     </>
   );

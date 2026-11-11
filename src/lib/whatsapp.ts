@@ -10,17 +10,19 @@ export const WHATSAPP_INTENTS = {
   institutional_header:
     "Olá, vim pelo site da Town Fire e quero entender o que meu imóvel precisa. Posso enviar a cidade, a atividade e a área aproximada?",
   regularizacao_comercio_goiania:
-    "Olá, vim pelo anúncio sobre regularização de comércio em Goiânia. Atividade: [preencher]. Área aproximada: [preencher]. Situação atual: [abrindo, funcionando ou com exigência].",
+    "Olá, quero um orçamento de regularização de comércio no Corpo de Bombeiros. Cidade: [preencher]. Tipo de imóvel: [loja, restaurante, galpão...]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
   projeto_pscip:
-    "Olá, vim pelo site da Town Fire e quero analisar o projeto de incêndio/PSCIP do meu imóvel. Cidade: [preencher]. Atividade: [preencher]. Área aproximada: [preencher].",
+    "Olá, quero um orçamento de projeto de incêndio (PSCIP). Cidade: [preencher]. Tipo de imóvel: [preencher]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
   regularizacao_cbmgo:
-    "Olá, vim pelo site da Town Fire e quero analisar a regularização do meu imóvel junto ao CBMGO. Cidade: [preencher]. Atividade: [preencher]. Situação atual: [preencher].",
+    "Olá, quero um orçamento de regularização no Corpo de Bombeiros (CERCON). Cidade: [preencher]. Tipo de imóvel: [preencher]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
   save_veiculos_eletricos:
-    "Olá, vim pelo site da Town Fire e quero analisar os carregadores de veículos elétricos do meu imóvel. Cidade: [preencher]. Tipo de imóvel: [condomínio, empresa, estacionamento...]. Quantidade de pontos de recarga: [preencher].",
+    "Olá, quero um orçamento de regularização de carregadores de veículos elétricos. Cidade: [preencher]. Tipo de imóvel: [condomínio, empresa, estacionamento...]. Área aproximada: [preencher]. Quantidade de pontos de recarga: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
   vistoria_laudo:
     "Olá, vim pelo site da Town Fire e quero solicitar uma vistoria e laudo técnico do meu imóvel. Cidade: [preencher]. Atividade: [preencher]. Área aproximada: [preencher].",
   sistema_fotovoltaico:
-    "Olá, vim pelo site da Town Fire e quero analisar o sistema fotovoltaico do meu imóvel. Cidade: [preencher]. Situação: [sistema existente ou nova instalação].",
+    "Olá, quero um orçamento de segurança contra incêndio para sistema fotovoltaico. Cidade: [preencher]. Tipo de imóvel: [preencher]. Área aproximada: [preencher]. Situação: [sistema existente ou nova instalação]. Recebi exigência dos Bombeiros: [sim ou não].",
+  vistoria_condominio:
+    "Olá, quero um orçamento de vistoria contra incêndio para condomínio. Cidade: [preencher]. Tipo de condomínio: [residencial ou comercial]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
 } as const;
 
 export type WhatsappIntent = keyof typeof WHATSAPP_INTENTS;

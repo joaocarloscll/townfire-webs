@@ -35,7 +35,8 @@ Parâmetros de cada evento:
 
 Valores de `intent`: `institutional_general`, `institutional_header`,
 `projeto_pscip`, `regularizacao_cbmgo`, `regularizacao_comercio_goiania`,
-`save_veiculos_eletricos`, `sistema_fotovoltaico`, `vistoria_laudo`
+`save_veiculos_eletricos`, `sistema_fotovoltaico`, `vistoria_condominio`,
+`vistoria_laudo`
 (fonte: `src/lib/whatsapp.ts`). `phone_click` e `instagram_click` não têm
 `intent` útil (vem `none`).
 

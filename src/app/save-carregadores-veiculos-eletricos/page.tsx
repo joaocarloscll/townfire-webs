@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { WhatsAppLink } from "@/components/WhatsAppLink";
+import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
 import { MobileStickyCta } from "@/components/MobileStickyCta";
 import { TechnicalReference } from "@/components/TechnicalReference";
@@ -95,22 +95,23 @@ export default function SaveCarregadoresVeiculosEletricos() {
               SAVE e veículos elétricos
             </p>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
-              Carregador instalado também passou a fazer parte da segurança
-              da edificação.
+              Regularização de carregadores de veículos elétricos em garagens
+              e condomínios
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-parchment/80">
+            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-snug text-parchment/90 sm:text-2xl">
+              Carregador instalado também passou a fazer parte da segurança da
+              edificação.
+            </p>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-parchment/80">
               A NT-45/2026 do CBMGO estabelece requisitos de segurança contra
               incêndio para sistemas de recarga de veículos eletrificados. A
               Town Fire analisa a situação existente e organiza o caminho
               técnico para adequação e regularização.
             </p>
-            <WhatsAppLink
+            <QuoteCta
               intent="save_veiculos_eletricos"
               placement="save_hero"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-7 font-display text-sm font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Analisar os carregadores do imóvel
-            </WhatsAppLink>
+            />
           </div>
         </section>
 
@@ -176,13 +177,12 @@ export default function SaveCarregadoresVeiculosEletricos() {
               ))}
             </dl>
 
-            <WhatsAppLink
+            <QuoteCta
               intent="save_veiculos_eletricos"
               placement="save_final"
-              className="mt-10 inline-flex min-h-[52px] items-center rounded-full bg-rose px-9 font-display text-base font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong"
-            >
-              Avaliar meu sistema de recarga
-            </WhatsAppLink>
+              size="final"
+              tone="light"
+            />
             <p className="mt-6 text-sm text-charcoal/60">
               WhatsApp oficial: {WHATSAPP_DISPLAY}
             </p>
@@ -216,7 +216,7 @@ export default function SaveCarregadoresVeiculosEletricos() {
       <MobileStickyCta
         intent="save_veiculos_eletricos"
         placement="save_sticky"
-        label="Falar com a Town Fire"
+        label="Solicitar orçamento pelo WhatsApp"
       />
     </>
   );
