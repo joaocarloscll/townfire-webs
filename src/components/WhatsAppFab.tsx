@@ -12,8 +12,9 @@ const SCROLL_THRESHOLD = 360;
  * Atalho flutuante para o WhatsApp, discreto de propósito:
  * - botão redondo pequeno, na paleta da marca (sem verde, sem pulso);
  * - respeita a safe area do iOS e fica longe da barra de navegação;
- * - sai de cena quando já há um CTA de WhatsApp da página (ou o rodapé) na
- *   tela, quando o banner de consentimento está aberto e antes da rolagem;
+ * - fica visível durante toda a rolagem; só sai de cena no topo da página,
+ *   quando o rodapé está na tela (para não cobrir os contatos) e enquanto o
+ *   banner de consentimento está aberto;
  * - `inert` enquanto escondido: não recebe foco nem toque.
  */
 export function WhatsAppFab({
@@ -26,7 +27,7 @@ export function WhatsAppFab({
   label?: string;
 } = {}) {
   const [scrolled, setScrolled] = useState(false);
-  const [coveredByPage, setCoveredByPage] = useState(false);
+  const [footerInView, setFooterInView] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -36,28 +37,16 @@ export function WhatsAppFab({
   }, []);
 
   useEffect(() => {
-    // O cabeçalho é fixo e tem seu próprio CTA: ele não conta como "coberto".
-    const targets = [
-      ...document.querySelectorAll<HTMLElement>(
-        'main a[data-event="whatsapp_click"]'
-      ),
-      ...document.querySelectorAll<HTMLElement>("footer"),
-    ];
-    if (targets.length === 0) return;
-
-    const visible = new Set<Element>();
-    const observer = new IntersectionObserver((entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) visible.add(entry.target);
-        else visible.delete(entry.target);
-      }
-      setCoveredByPage(visible.size > 0);
-    });
-    targets.forEach((el) => observer.observe(el));
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+    const observer = new IntersectionObserver(([entry]) =>
+      setFooterInView(entry.isIntersecting)
+    );
+    observer.observe(footer);
     return () => observer.disconnect();
   }, []);
 
-  const show = scrolled && !coveredByPage;
+  const show = scrolled && !footerInView;
 
   return (
     <div
