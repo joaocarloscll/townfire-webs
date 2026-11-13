@@ -7,7 +7,7 @@ import { MethodSection } from "@/components/MethodSection";
 import { AuthoritySection } from "@/components/AuthoritySection";
 import { ConversionSection } from "@/components/ConversionSection";
 import { Footer } from "@/components/Footer";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { SITE_URL } from "@/lib/site-config";
 
 // Person só entra aqui (não em layout.tsx): João e Jefferson aparecem
@@ -67,7 +67,7 @@ export default function Home() {
         <ConversionSection />
       </main>
       <Footer />
-      <MobileStickyCta />
+      <WhatsAppFab />
     </>
   );
 }

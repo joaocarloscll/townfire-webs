@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ArticleBody } from "@/components/blog/ArticleBody";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { CATEGORY_LABELS, formatDatePt, getAllPosts, getPost, getRelated } from "@/lib/blog";
 import { faqPageSchema, pageSocial } from "@/lib/seo";
@@ -224,7 +224,7 @@ export default async function BlogPost({ params }: PageProps<"/blog/[slug]">) {
       </main>
 
       <Footer />
-      <MobileStickyCta intent={post.intent} placement="blog_post_sticky" label="Falar com a Town Fire" />
+      <WhatsAppFab intent={post.intent} placement="blog_post_fab" />
     </>
   );
 }

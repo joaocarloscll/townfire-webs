@@ -5,7 +5,7 @@ import { WhatsAppLink } from "@/components/WhatsAppLink";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Reveal } from "@/components/Reveal";
 import { Footer } from "@/components/Footer";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL } from "@/lib/site-config";
 import { pageSocial } from "@/lib/seo";
@@ -298,10 +298,9 @@ export default function RegularizacaoComercioGoiania() {
       </main>
 
       <Footer />
-      <MobileStickyCta
+      <WhatsAppFab
         intent="regularizacao_comercio_goiania"
-        placement="lp_comercio_sticky"
-        label="Solicitar orçamento pelo WhatsApp"
+        placement="lp_comercio_fab"
       />
     </>
   );

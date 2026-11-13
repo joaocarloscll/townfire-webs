@@ -28,6 +28,13 @@ export function ConsentBanner() {
     return () => window.removeEventListener(CONSENT_REOPEN_EVENT, onReopen);
   }, []);
 
+  // Avisa o resto da página (ex.: botão flutuante do WhatsApp) que o banner
+  // está aberto, para não competir com ele no rodapé da tela.
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-consent-open", open);
+    return () => document.documentElement.removeAttribute("data-consent-open");
+  }, [open]);
+
   if (!open) return null;
 
   function choose(value: "granted" | "denied") {
