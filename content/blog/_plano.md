@@ -25,12 +25,12 @@ leitor à norma vigente.
 | regularizacao-de-comercio-bombeiros-goias | regularização de comércio | guia |
 | exigencia-do-corpo-de-bombeiros-o-que-fazer | exigência do corpo de bombeiros | guia |
 | incendio-em-deposito-em-goiania-o-que-conferir | incêndio em depósito | notícia |
+| o-que-e-pscip-para-que-serve-e-quem-precisa | o que é pscip | guia |
 
 ## Próximos (nesta ordem)
 
 | # | Tema | Palavra-chave principal | Categoria | Intent |
 | --- | --- | --- | --- | --- |
-| 1 | PSCIP: o que é, para que serve e quem precisa | o que é pscip | projeto-pscip | projeto_pscip |
 | 2 | Quanto custa regularizar nos bombeiros? O que muda o valor (só fatores, sem números) | quanto custa regularizar imóvel nos bombeiros | regularizacao | regularizacao_cbmgo |
 | 3 | Licenciamento Facilitado do CBMGO: como saber se o seu comércio se encaixa | licenciamento facilitado cbmgo | cercon | regularizacao_cbmgo |
 | 4 | Reformei ou ampliei o imóvel: preciso regularizar de novo? | reforma e regularização nos bombeiros | regularizacao | regularizacao_cbmgo |
