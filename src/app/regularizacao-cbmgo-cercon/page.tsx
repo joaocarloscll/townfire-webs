@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { TechnicalReference } from "@/components/TechnicalReference";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
@@ -363,10 +363,9 @@ export default function RegularizacaoCbmgoCercon() {
       </main>
 
       <Footer />
-      <MobileStickyCta
+      <WhatsAppFab
         intent="regularizacao_cbmgo"
-        placement="regularizacao_cbmgo_sticky"
-        label="Solicitar orçamento pelo WhatsApp"
+        placement="regularizacao_cbmgo_fab"
       />
     </>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Header } from "@/components/Header";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
 import { faqPageSchema, pageSocial } from "@/lib/seo";
@@ -228,10 +228,9 @@ export default function ProjetoDeIncendioPscip() {
       </main>
 
       <Footer />
-      <MobileStickyCta
+      <WhatsAppFab
         intent="projeto_pscip"
-        placement="projeto_pscip_sticky"
-        label="Solicitar orçamento pelo WhatsApp"
+        placement="projeto_pscip_fab"
       />
     </>
   );

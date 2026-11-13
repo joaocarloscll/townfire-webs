@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { MobileStickyCta } from "@/components/MobileStickyCta";
+import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { CATEGORY_LABELS, formatDatePt, getAllPosts } from "@/lib/blog";
 import { pageSocial } from "@/lib/seo";
 import { COMPANY_NAME, SITE_URL } from "@/lib/site-config";
@@ -122,10 +122,9 @@ export default function BlogIndex() {
       </main>
 
       <Footer />
-      <MobileStickyCta
+      <WhatsAppFab
         intent="institutional_general"
-        placement="blog_index_sticky"
-        label="Falar com a Town Fire"
+        placement="blog_index_fab"
       />
     </>
   );
