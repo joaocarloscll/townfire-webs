@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   CONSENT_REOPEN_EVENT,
@@ -15,6 +15,7 @@ import {
  */
 export function ConsentBanner() {
   const [open, setOpen] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // localStorage só existe no cliente: decidir a visibilidade inicial no
@@ -35,6 +36,26 @@ export function ConsentBanner() {
     return () => document.documentElement.removeAttribute("data-consent-open");
   }, [open]);
 
+  // Publica a altura do banner (--tf-consent-h) para que a barra fixa de
+  // WhatsApp do celular fique empilhada acima dele, sem sobrepor.
+  useEffect(() => {
+    const root = document.documentElement;
+    const el = bannerRef.current;
+    if (!open || !el) {
+      root.style.removeProperty("--tf-consent-h");
+      return;
+    }
+    const publish = () =>
+      root.style.setProperty("--tf-consent-h", `${el.getBoundingClientRect().height}px`);
+    publish();
+    const observer = new ResizeObserver(publish);
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty("--tf-consent-h");
+    };
+  }, [open]);
+
   if (!open) return null;
 
   function choose(value: "granted" | "denied") {
@@ -44,6 +65,7 @@ export function ConsentBanner() {
 
   return (
     <div
+      ref={bannerRef}
       role="region"
       aria-label="Preferências de privacidade"
       className="fixed inset-x-0 bottom-0 z-50 border-t border-brass/30 bg-espresso text-parchment"

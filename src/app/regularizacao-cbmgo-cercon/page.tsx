@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
+import { MobileWhatsAppBar } from "@/components/MobileWhatsAppBar";
 import { TechnicalReference } from "@/components/TechnicalReference";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
@@ -363,9 +364,15 @@ export default function RegularizacaoCbmgoCercon() {
       </main>
 
       <Footer />
+      {/* No celular a barra fixa faz o papel do botão flutuante. */}
       <WhatsAppFab
         intent="regularizacao_cbmgo"
         placement="regularizacao_cbmgo_fab"
+        hideOnMobile
+      />
+      <MobileWhatsAppBar
+        intent="regularizacao_cbmgo"
+        placement="regularizacao_cbmgo_mobile_sticky"
       />
     </>
   );
