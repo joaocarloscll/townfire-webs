@@ -19,6 +19,8 @@ const FIELD = 'input, textarea, select, [contenteditable=""], [contenteditable="
  * - Convive com o banner de consentimento: o banner publica a altura em
  *   --tf-consent-h e a barra fica empilhada logo acima dele. Os dois podem ser
  *   lidos e acionados.
+ *   Em tela baixa (celular na horizontal, altura <= 520 px) a barra espera o
+ *   visitante responder ao banner, para não sobrar quase nenhuma área de leitura.
  * - Some (visibility) enquanto um campo de formulário está focado, para não
  *   disputar a área de digitação com o teclado virtual.
  */
@@ -81,7 +83,7 @@ export function MobileWhatsAppBar({
         data-mobile-bar
         inert={typing}
         style={{ bottom: "var(--tf-consent-h, 0px)" }}
-        className={`fixed inset-x-0 z-40 border-t border-brass/30 bg-espresso px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:hidden print:hidden [:root[data-consent-open]_&]:pb-3 ${
+        className={`fixed inset-x-0 z-40 border-t border-brass/30 bg-espresso px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:hidden print:hidden [:root[data-consent-open]_&]:pb-3 [@media(max-height:520px)]:[:root[data-consent-open]_&]:hidden ${
           typing ? "invisible" : ""
         }`}
       >
