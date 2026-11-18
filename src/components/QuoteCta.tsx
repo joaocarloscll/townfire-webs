@@ -3,8 +3,9 @@ import type { WhatsappIntent } from "@/lib/whatsapp";
 
 export const QUOTE_CTA_LABEL = "Solicitar orçamento pelo WhatsApp";
 
-// Diz ao visitante o que mandar na conversa. Os mesmos itens já vêm
-// pré-preenchidos na mensagem do WhatsApp (WHATSAPP_INTENTS).
+// Diz ao visitante o que mandar na conversa. A mensagem pré-preenchida do
+// WhatsApp é curta e não traz esses campos (WHATSAPP_INTENTS): eles são
+// pedidos durante o atendimento.
 export const QUOTE_CTA_HINT =
   "Envie a cidade, o tipo de imóvel e a área aproximada. Se recebeu uma exigência dos Bombeiros, envie o documento também.";
 

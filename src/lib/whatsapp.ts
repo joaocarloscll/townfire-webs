@@ -1,28 +1,27 @@
 export const WHATSAPP_E164 = "5562992292257";
 export const WHATSAPP_DISPLAY = "+55 62 99229-2257";
 
-// Fonte canônica: 05_WHATSAPP_CONVERSAO/whatsapp_cta_map_v6.json.
-// O mapa do pacote vem sem acento (ASCII); aqui a mensagem é escrita em
-// português correto, porque é texto que o lead lê no WhatsApp.
+// Mensagens curtas, sem campos para preencher: cidade, área e exigências são
+// pedidas durante a conversa. Só os botões de serviços específicos mudam o
+// texto; todos os outros usam a mensagem padrão. O texto é o que o lead lê no
+// WhatsApp, por isso vai em português correto, com acentuação.
+const DEFAULT_MESSAGE =
+  "Olá! Preciso de ajuda com a regularização do meu imóvel nos Bombeiros. Podem me orientar?";
+
 export const WHATSAPP_INTENTS = {
-  institutional_general:
-    "Olá, vim pelo site da Town Fire e quero entender o que meu imóvel precisa. Cidade: [preencher]. Atividade: [preencher]. Área aproximada: [preencher].",
-  institutional_header:
-    "Olá, vim pelo site da Town Fire e quero entender o que meu imóvel precisa. Posso enviar a cidade, a atividade e a área aproximada?",
-  regularizacao_comercio_goiania:
-    "Olá, quero um orçamento de regularização de comércio no Corpo de Bombeiros. Cidade: [preencher]. Tipo de imóvel: [loja, restaurante, galpão...]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
+  institutional_general: DEFAULT_MESSAGE,
+  institutional_header: DEFAULT_MESSAGE,
+  regularizacao_comercio_goiania: DEFAULT_MESSAGE,
+  regularizacao_cbmgo: DEFAULT_MESSAGE,
+  vistoria_laudo: DEFAULT_MESSAGE,
   projeto_pscip:
-    "Olá, quero um orçamento de projeto de incêndio (PSCIP). Cidade: [preencher]. Tipo de imóvel: [preencher]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
-  regularizacao_cbmgo:
-    "Olá, quero um orçamento de regularização no Corpo de Bombeiros (CERCON). Cidade: [preencher]. Tipo de imóvel: [preencher]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
-  save_veiculos_eletricos:
-    "Olá, quero um orçamento de regularização de carregadores de veículos elétricos. Cidade: [preencher]. Tipo de imóvel: [condomínio, empresa, estacionamento...]. Área aproximada: [preencher]. Quantidade de pontos de recarga: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
-  vistoria_laudo:
-    "Olá, vim pelo site da Town Fire e quero solicitar uma vistoria e laudo técnico do meu imóvel. Cidade: [preencher]. Atividade: [preencher]. Área aproximada: [preencher].",
-  sistema_fotovoltaico:
-    "Olá, quero um orçamento de segurança contra incêndio para sistema fotovoltaico. Cidade: [preencher]. Tipo de imóvel: [preencher]. Área aproximada: [preencher]. Situação: [sistema existente ou nova instalação]. Recebi exigência dos Bombeiros: [sim ou não].",
+    "Olá! Preciso de um projeto de incêndio/PSCIP. Podem me orientar?",
   vistoria_condominio:
-    "Olá, quero um orçamento de vistoria contra incêndio para condomínio. Cidade: [preencher]. Tipo de condomínio: [residencial ou comercial]. Área aproximada: [preencher]. Recebi exigência dos Bombeiros: [sim ou não].",
+    "Olá! Preciso de uma vistoria contra incêndio no condomínio. Podem me orientar?",
+  save_veiculos_eletricos:
+    "Olá! Preciso regularizar carregadores de veículos elétricos. Podem me orientar?",
+  sistema_fotovoltaico:
+    "Olá! Preciso avaliar a segurança contra incêndio do meu sistema fotovoltaico. Podem me orientar?",
 } as const;
 
 export type WhatsappIntent = keyof typeof WHATSAPP_INTENTS;
