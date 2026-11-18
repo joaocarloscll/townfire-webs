@@ -37,6 +37,10 @@ O botão flutuante do WhatsApp (`WhatsAppFab`) usa o sufixo `_fab` no `placement
 (ex.: `projeto_pscip_fab`, `home_fab`) e herda o `intent` da página. Ele substituiu
 a barra fixa do celular (`*_sticky`).
 
+Na página `/regularizacao-cbmgo-cercon`, abaixo de 768 px, a barra fixa "Falar com um
+engenheiro" (`MobileWhatsAppBar`, `placement` `regularizacao_cbmgo_mobile_sticky`) faz o
+papel do botão flutuante, que fica só a partir de 768 px.
+
 Valores de `intent`: `institutional_general`, `institutional_header`,
 `projeto_pscip`, `regularizacao_cbmgo`, `regularizacao_comercio_goiania`,
 `save_veiculos_eletricos`, `sistema_fotovoltaico`, `vistoria_condominio`,
