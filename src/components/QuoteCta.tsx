@@ -7,7 +7,7 @@ export const QUOTE_CTA_LABEL = "Solicitar orçamento pelo WhatsApp";
 // WhatsApp é curta e não traz esses campos (WHATSAPP_INTENTS): eles são
 // pedidos durante o atendimento.
 export const QUOTE_CTA_HINT =
-  "Envie a cidade, o tipo de imóvel e a área aproximada. Se recebeu uma exigência dos Bombeiros, envie o documento também.";
+  "Conte sua situação. Pedimos os detalhes necessários durante a conversa.";
 
 const SIZES = {
   hero: "px-7 text-sm",
@@ -23,27 +23,33 @@ export function QuoteCta({
   placement,
   size = "hero",
   tone = "dark",
+  label = QUOTE_CTA_LABEL,
+  hint = QUOTE_CTA_HINT,
+  className = "mt-10",
 }: {
   intent: WhatsappIntent;
   placement: string;
   size?: keyof typeof SIZES;
   tone?: "dark" | "light";
+  label?: string;
+  hint?: string;
+  className?: string;
 }) {
   return (
     <>
       <WhatsAppLink
         intent={intent}
         placement={placement}
-        className={`mt-10 inline-flex min-h-[52px] items-center justify-center rounded-full bg-rose py-3 text-center font-display font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong ${SIZES[size]}`}
+        className={`${className} inline-flex min-h-[52px] items-center justify-center rounded-full bg-rose py-3 text-center font-display font-semibold uppercase tracking-[0.03em] text-espresso transition-colors hover:bg-rose-strong ${SIZES[size]}`}
       >
-        {QUOTE_CTA_LABEL}
+        {label}
       </WhatsAppLink>
       <p
         className={`mt-4 max-w-md text-sm leading-relaxed ${
           tone === "dark" ? "text-parchment/65" : "text-charcoal/65"
         }`}
       >
-        {QUOTE_CTA_HINT}
+        {hint}
       </p>
     </>
   );

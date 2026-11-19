@@ -5,6 +5,7 @@ import { QuoteCta } from "@/components/QuoteCta";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFab } from "@/components/WhatsAppFab";
 import { MobileWhatsAppBar } from "@/components/MobileWhatsAppBar";
+import { ResponsibleEngineers } from "@/components/ResponsibleEngineers";
 import { TechnicalReference } from "@/components/TechnicalReference";
 import { WHATSAPP_DISPLAY } from "@/lib/whatsapp";
 import { SITE_URL, siteConfig } from "@/lib/site-config";
@@ -129,28 +130,47 @@ export default function RegularizacaoCbmgoCercon() {
       <Header intent="regularizacao_cbmgo" placement="regularizacao_cbmgo_header" />
 
       <main className="flex-1">
-        <section id="top" className="bg-espresso py-20 text-parchment lg:py-28">
+        <section
+          id="top"
+          className="bg-espresso py-6 text-parchment min-[360px]:py-8 sm:py-20 lg:py-28"
+        >
           <div className="mx-auto max-w-3xl px-6 lg:px-10">
             <p className="font-display text-xs font-semibold uppercase tracking-[0.16em] text-brass">
               Regularização junto ao CBMGO
             </p>
-            <h1 className="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl">
-              Regularização no Corpo de Bombeiros e CERCON em Goiânia
+            <h1 className="mt-3 font-display text-[1.75rem] font-bold leading-[1.1] min-[360px]:text-[1.875rem] tracking-[-0.02em] sm:mt-5 sm:text-5xl sm:leading-[1.08]">
+              Precisa emitir ou renovar o CERCON?
             </h1>
-            <p className="mt-6 max-w-xl font-display text-xl font-semibold leading-snug text-parchment/90 sm:text-2xl">
-              Regularizar não começa no protocolo. Começa entendendo a
-              situação do imóvel.
-            </p>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-parchment/80">
-              A Town Fire analisa a edificação, identifica o procedimento
-              aplicável e organiza o caminho técnico entre a situação atual e
-              a regularização junto ao Corpo de Bombeiros Militar do Estado
-              de Goiás.
+            <p className="mt-3 max-w-xl text-[0.9375rem] leading-relaxed text-parchment/80 min-[360px]:mt-4 min-[360px]:text-base sm:mt-6 sm:text-lg">
+              A Town Fire analisa seu imóvel e define o caminho para a
+              regularização junto aos Bombeiros em Goiás, com projeto,
+              documentação e acompanhamento técnico conforme o serviço
+              contratado.
             </p>
             <QuoteCta
               intent="regularizacao_cbmgo"
               placement="regularizacao_cbmgo_hero"
+              label="Conversar sobre meu imóvel"
+              hint="Conte sua situação pelo WhatsApp. Nossa equipe orienta o próximo passo."
+              className="mt-6 sm:mt-10"
             />
+          </div>
+        </section>
+
+        <ResponsibleEngineers />
+
+        <section className="bg-espresso py-16 text-parchment sm:py-20">
+          <div className="mx-auto max-w-3xl px-6 lg:px-10">
+            <h2 className="font-display text-3xl font-bold leading-[1.15] sm:text-4xl">
+              Regularizar não começa no protocolo. Começa entendendo a
+              situação do imóvel.
+            </h2>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-parchment/80">
+              A Town Fire analisa a edificação, identifica o procedimento
+              aplicável e organiza o caminho técnico entre a situação atual e
+              a regularização junto ao Corpo de Bombeiros Militar do Estado de
+              Goiás.
+            </p>
           </div>
         </section>
 

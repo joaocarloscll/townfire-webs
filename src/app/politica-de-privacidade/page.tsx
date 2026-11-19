@@ -55,11 +55,15 @@ export default function PoliticaDePrivacidade() {
               <ul className="mt-3 list-disc space-y-1.5 pl-5">
                 <li>
                   dados técnicos de navegação, somente depois que você permite
-                  a medição (ver seção 4);
+                  alguma medição (ver seção 4);
                 </li>
                 <li>página acessada e origem da visita;</li>
                 <li>interação com as páginas do site;</li>
-                <li>identificadores técnicos de campanha, quando existentes;</li>
+                <li>
+                  parâmetros de campanha (UTM) e identificadores de clique de
+                  anúncios do Google, quando você chegou por um anúncio e
+                  permitiu a medição correspondente;
+                </li>
                 <li>
                   uma referência curta gerada quando você inicia uma conversa
                   pelo WhatsApp a partir de um botão do site;
@@ -94,18 +98,46 @@ export default function PoliticaDePrivacidade() {
 
             <section>
               <h2 className="font-display text-xl font-semibold text-espresso">
-                4. Medição e cookies
+                4. Medição, cookies e anúncios
               </h2>
               <p className="mt-3">
-                O site utiliza o Google Analytics somente quando o visitante
-                permite a medição. Essa ferramenta ajuda a compreender, de
-                forma agregada, como as páginas são utilizadas e quais canais
-                originam acessos e contatos.
+                Usamos ferramentas do Google (Google Tag Manager, Google
+                Analytics e Google Ads) para duas finalidades, que você
+                escolhe separadamente:
+              </p>
+              <ul className="mt-3 list-disc space-y-1.5 pl-5">
+                <li>
+                  <strong>Análise de utilização do site.</strong> O Google
+                  Analytics mostra, de forma agregada, quais páginas são
+                  visitadas e quais botões são clicados. Grava cookies de
+                  análise neste navegador (como <code>_ga</code>).
+                </li>
+                <li>
+                  <strong>Medição dos anúncios do Google.</strong> O Google
+                  Ads permite saber quais anúncios levaram a um contato pelo
+                  WhatsApp. Grava cookies de conversão (como{" "}
+                  <code>_gcl_*</code>) e envia ao Google o clique no botão e o
+                  identificador do anúncio. Não usamos essa medição para
+                  personalizar anúncios: a personalização permanece
+                  desativada.
+                </li>
+              </ul>
+              <p className="mt-3">
+                Sem escolha ou com a recusa, as ferramentas do Google não são
+                carregadas e nada é enviado a elas. O site e o contato pelo
+                WhatsApp funcionam igual com qualquer escolha.
               </p>
               <p className="mt-3">
-                Os recursos de medição permanecem desativados enquanto essa
-                autorização não for concedida. A escolha pode ser alterada a
-                qualquer momento pelo link{" "}
+                Guardamos a sua escolha no armazenamento do navegador (versão
+                do aviso e finalidades permitidas). Só com permissão, também
+                guardamos durante a sessão os parâmetros de campanha da
+                visita, para que o contato pelo WhatsApp seja ligado ao
+                anúncio de origem. Ao retirar uma permissão, os sinais
+                enviados ao Google são atualizados na hora e os cookies da
+                finalidade retirada são apagados.
+              </p>
+              <p className="mt-3">
+                A escolha pode ser alterada a qualquer momento pelo link{" "}
                 <ConsentPreferencesLink className={preferencesLinkClassName} />{" "}
                 disponível no site.
               </p>
@@ -121,6 +153,15 @@ export default function PoliticaDePrivacidade() {
                 momento, o tratamento das suas informações também está
                 sujeito às políticas da própria plataforma. A Town Fire
                 recebe as informações que você decide enviar na conversa.
+              </p>
+              <p className="mt-3">
+                O clique no botão passa por uma rota do próprio site, que
+                registra em nossos servidores o assunto do botão, sua posição
+                na página, uma referência curta e, se você permitiu a medição,
+                os parâmetros da campanha e o identificador de clique do
+                anúncio. Esse registro indica apenas que o WhatsApp foi
+                aberto: não significa mensagem enviada. Não enviamos ao
+                Google o seu telefone nem o conteúdo da conversa.
               </p>
             </section>
 
@@ -143,9 +184,11 @@ export default function PoliticaDePrivacidade() {
                 7. Escolha e preferências de privacidade
               </h2>
               <p className="mt-3">
-                Na primeira visita, um aviso permite permitir ou recusar a
-                medição do site. Você pode mudar de ideia a qualquer momento
-                pelo link{" "}
+                Na primeira visita, um aviso permite permitir as duas medições,
+                continuar sem medição ou escolher cada finalidade. Quem
+                escolheu em uma versão anterior do aviso mantém apenas o que
+                autorizou naquela ocasião e recebe a nova escolha. Você pode
+                mudar de ideia a qualquer momento pelo link{" "}
                 <ConsentPreferencesLink className={preferencesLinkClassName} />{" "}
                 no rodapé do site.
               </p>
@@ -170,7 +213,8 @@ export default function PoliticaDePrivacidade() {
               <p className="mt-3">
                 Esta política pode ser atualizada para refletir mudanças no
                 site ou nas ferramentas utilizadas. A versão vigente é sempre
-                a publicada nesta página.
+                a publicada nesta página. Última atualização: 19 de novembro
+                de 2026.
               </p>
             </section>
           </div>

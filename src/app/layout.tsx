@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { ClickTracker } from "@/components/ClickTracker";
 import { ConsentBanner } from "@/components/ConsentBanner";
+import { CONSENT_BOOTSTRAP_SCRIPT } from "@/lib/consent";
 import {
   COMPANY_NAME,
   INSTAGRAM_URL,
@@ -118,6 +119,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${montserrat.variable} ${poppins.variable} h-full antialiased`}
     >
       <head>
+        {/* Consent Mode v2: estado padrão "denied" (e restauração da escolha
+            salva) antes de qualquer script do Google e da hidratação. */}
+        <script
+          dangerouslySetInnerHTML={{ __html: CONSENT_BOOTSTRAP_SCRIPT }}
+        />
         {/* Marca `.js` antes do primeiro paint: só então o CSS esconde os
             blocos com Reveal. Sem JavaScript nada fica oculto. */}
         <script

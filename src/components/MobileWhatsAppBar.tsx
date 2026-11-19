@@ -72,11 +72,12 @@ export function MobileWhatsAppBar({
 
   return (
     <>
-      {/* Espaço reservado: barra + banner de consentimento, quando aberto. */}
+      {/* Espaço reservado para a barra. O do banner de consentimento, quando
+          aberto, vem do padding do body (--tf-consent-h). */}
       <div
         aria-hidden
         data-mobile-bar-spacer
-        className="h-[calc(var(--tf-bar-h,calc(4.5rem+env(safe-area-inset-bottom)))+var(--tf-consent-h,0px))] md:hidden print:hidden"
+        className="h-[var(--tf-bar-h,calc(4.5rem+env(safe-area-inset-bottom)))] md:hidden print:hidden"
       />
       <div
         ref={barRef}
