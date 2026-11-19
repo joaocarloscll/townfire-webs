@@ -3,7 +3,7 @@
 // destaque é uma palavra (não um número): "+100 processos" e "+7 anos" não
 // têm fonte canônica confirmada no projeto, então viraram prova qualitativa
 // em vez de estatística — mesma estrutura visual, sem inventar métrica.
-const FOUNDERS = [
+export const FOUNDERS = [
   {
     figure: "Projetos",
     figureLabel: "Engenharia civil + segurança contra incêndio",

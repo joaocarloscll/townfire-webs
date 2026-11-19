@@ -29,9 +29,12 @@ export const siteConfig = {
   serviceArea: "Goiânia e região",
 } as const;
 
-// Google Analytics (GA4). Carregado por src/components/Analytics.tsx somente
-// após consentimento de medição (ver src/lib/consent.ts).
-export const GA_MEASUREMENT_ID = "G-7VSW42JTD9";
+// Google Analytics (GA4), propriedade "Town Fire - townfire.com.br". Só é usado
+// pelo gtag.js direto, que entra apenas quando NEXT_PUBLIC_GTM_ID não existe
+// (com GTM, o ID do GA4 vive no container). Carregado por
+// src/components/Analytics.tsx somente com alguma medição permitida
+// (ver src/lib/consent.ts).
+export const GA_MEASUREMENT_ID = "G-L3506HVLRM";
 
 // Google Tag Manager (opcional). Defina NEXT_PUBLIC_GTM_ID (ex.: GTM-XXXXXXX)
 // no ambiente de build para ativar. Com GTM ativo, o container passa a

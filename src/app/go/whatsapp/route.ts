@@ -30,12 +30,16 @@ function truncate(value: string | null, maxLength: number): string | null {
 }
 
 /**
- * Lê um parâmetro de atribuição com fallback: o CTA que o visitante clicou
- * pode não carregar os parâmetros da URL de entrada (ex.: um clique no
- * header depois de navegar pela home não repete o gclid da landing). Ordem:
- * 1) querystring da própria rota; 2) querystring do referer (a página onde
- * o clique aconteceu); 3) null. Referer inválido/ausente não quebra nada.
+ * Lê os parâmetros de atribuição permitidos.
+ * - Identificadores de clique do Google (gclid, gbraid, wbraid): SOMENTE da
+ *   querystring da própria rota. O botão só os acrescenta quando o visitante
+ *   permitiu a medição de anúncios; o referer nunca é usado para eles.
+ * - UTMs (rótulos de campanha, sem identificar a pessoa): querystring da rota
+ *   ou, como fallback, a do referer (a página onde o clique aconteceu).
+ * Referer inválido/ausente não quebra nada.
  */
+const CLICK_ID_PARAMS = new Set(["gclid", "gbraid", "wbraid"]);
+
 function readAttributionParams(
   routeParams: URLSearchParams,
   refererUrl: string | null
@@ -54,7 +58,8 @@ function readAttributionParams(
     string | null
   >;
   for (const key of ATTRIBUTION_PARAMS) {
-    const value = routeParams.get(key) ?? refererParams?.get(key) ?? null;
+    const fromReferer = CLICK_ID_PARAMS.has(key) ? null : refererParams?.get(key);
+    const value = routeParams.get(key) ?? fromReferer ?? null;
     result[key] = truncate(value, MAX_PARAM_LENGTH);
   }
   return result;

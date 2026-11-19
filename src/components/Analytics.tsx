@@ -5,9 +5,17 @@ import Script from "next/script";
 import { GA_MEASUREMENT_ID, GTM_ID } from "@/lib/site-config";
 import {
   CONSENT_CHANGE_EVENT,
-  getStoredConsent,
-  type ConsentValue,
+  consentSignals,
+  hasAnyConsent,
+  readConsent,
+  type ConsentChoice,
 } from "@/lib/consent";
+import {
+  captureFromUrl,
+  dropRevoked,
+  restoreClickIdsToUrl,
+  syncStorage,
+} from "@/lib/attribution";
 
 declare global {
   interface Window {
@@ -16,48 +24,48 @@ declare global {
   }
 }
 
-// Expira os cookies do GA4. gtag.js grava esses cookies com o domínio
-// "pontuado" (ex.: .townfire.com.br), que cobre apex + www — por isso a
-// limpeza tenta tanto o host atual quanto essa variante. Nunca mexe em
-// cookies de google.com (fora do alcance do site) nem em outros cookies.
-function clearAnalyticsCookies() {
+const EXPIRED = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+// Expira cookies do Google gravados por este site. O gtag.js usa o domínio
+// "pontuado" (ex.: .townfire.com.br), que cobre apex + www; por isso a limpeza
+// tenta o host atual e essa variante. Nunca mexe em cookies de google.com.
+function expireCookies(matches: (name: string) => boolean) {
   if (typeof document === "undefined") return;
   const names = document.cookie
     .split(";")
     .map((entry) => entry.split("=")[0]?.trim())
     .filter(Boolean);
-  const isAnalyticsCookie = (name: string) =>
-    name === "_ga" || name === "_gid" || name.startsWith("_ga_");
-
-  const expired = "expires=Thu, 01 Jan 1970 00:00:00 GMT";
   const host = window.location.hostname;
   const dotDomain = host.includes(".") ? `.${host}` : null;
-
   for (const name of names) {
-    if (!isAnalyticsCookie(name)) continue;
-    document.cookie = `${name}=; ${expired}; path=/`;
-    if (dotDomain) {
-      document.cookie = `${name}=; ${expired}; path=/; domain=${dotDomain}`;
-    }
+    if (!matches(name)) continue;
+    document.cookie = `${name}=; ${EXPIRED}; path=/`;
+    if (dotDomain) document.cookie = `${name}=; ${EXPIRED}; path=/; domain=${dotDomain}`;
   }
 }
 
+const clearAnalyticsCookies = () =>
+  expireCookies((n) => n === "_ga" || n === "_gid" || n.startsWith("_ga_") || n.startsWith("_gat"));
+
+// Cookies de medição de anúncios do Google (conversões e identificadores de clique).
+const clearAdsCookies = () =>
+  expireCookies((n) => n.startsWith("_gcl_") || n.startsWith("_gac_"));
+
 /**
- * GA4 sob Google Consent Mode v2: define os quatro sinais como "denied" por
- * padrão assim que a página carrega (antes de qualquer script do Google),
- * e só carrega o gtag.js quando o visitante permite medição. Publicidade
- * (ad_storage/ad_user_data/ad_personalization) fica sempre "denied" até
- * existir uma categoria de publicidade no banner (ver
- * docs/tracking-architecture.md).
+ * Google Consent Mode v2, modo básico controlado pelo código do site.
  *
- * Revogação (granted → denied): abordagem conservadora. gtag.js, uma vez
- * carregado, continua executando na página atual — atualizar o sinal de
- * consentimento não descarrega o script. Por isso, quando a revogação
- * acontece DEPOIS que o script já rodou nesta página, recarregamos uma
- * única vez: a página volta a carregar já com "denied" salvo, então o
- * gtag.js nem chega a ser requisitado. Sem reload em loop — só dispara
- * quando `scriptLoadedRef` é true, e o valor reseta a cada carregamento
- * novo (contexto de JS novo).
+ * Quem define o estado inicial é o script inline do <head>
+ * (CONSENT_BOOTSTRAP_SCRIPT): `consent default` com os quatro sinais "denied"
+ * e, havendo escolha válida salva, `consent update` — tudo antes de qualquer
+ * script do Google. Este componente só reage a mudanças (um único dono dos
+ * sinais) e carrega o GTM, ou o gtag.js se não houver GTM, quando ao menos uma
+ * finalidade é permitida. Ordem: default → update → carregamento → eventos.
+ *
+ * Revogação: os sinais são atualizados na hora, os cookies da finalidade
+ * retirada são apagados e os identificadores de campanha dela são descartados.
+ * Se nenhuma finalidade sobrar e as tags já tinham carregado nesta página,
+ * recarrega uma única vez: a página volta já com "denied" e o Google nem é
+ * requisitado (gtag.js/GTM carregados não se descarregam).
  */
 export function Analytics() {
   const [loadScript, setLoadScript] = useState(false);
@@ -74,39 +82,50 @@ export function Analytics() {
         window.dataLayer.push(arguments);
       };
 
-    window.gtag("consent", "default", {
-      analytics_storage: "denied",
-      ad_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
-    });
+    captureFromUrl();
 
-    const applyConsent = (value: ConsentValue | null) => {
-      if (value === "granted") {
-        window.gtag("consent", "update", { analytics_storage: "granted" });
-        scriptLoadedRef.current = true;
-        setLoadScript(true);
-      } else if (value === "denied") {
-        window.gtag("consent", "update", { analytics_storage: "denied" });
-        clearAnalyticsCookies();
-        if (scriptLoadedRef.current) {
-          window.location.reload();
-        }
-      }
+    const load = (choice: ConsentChoice) => {
+      syncStorage(choice);
+      if (choice.ads) restoreClickIdsToUrl(choice);
+      scriptLoadedRef.current = true;
+      setLoadScript(true);
     };
 
-    applyConsent(getStoredConsent());
+    // Restauração: o script do <head> já aplicou default + update. Aqui só se
+    // carrega a tag, depois de captureFromUrl e com a URL já completa.
+    let applied: ConsentChoice | null = readConsent()?.choice ?? null;
+    if (hasAnyConsent(applied)) load(applied as ConsentChoice);
 
-    const onChange = (event: Event) =>
-      applyConsent((event as CustomEvent<ConsentValue>).detail);
+    const onChange = (event: Event) => {
+      const next = (event as CustomEvent<ConsentChoice>).detail;
+      const prev = applied;
+      applied = next;
+
+      // 1. Sinais atualizados antes de qualquer carregamento ou evento.
+      window.gtag("consent", "update", consentSignals(next));
+
+      // 2. O que foi retirado deixa de existir no navegador.
+      if (prev?.analytics && !next.analytics) clearAnalyticsCookies();
+      if (prev?.ads && !next.ads) clearAdsCookies();
+      if (!next.analytics && !next.ads) {
+        clearAnalyticsCookies();
+        clearAdsCookies();
+      }
+      dropRevoked(next);
+
+      // 3. Carrega a tag, ou volta ao estado sem Google.
+      if (hasAnyConsent(next)) load(next);
+      else if (scriptLoadedRef.current) window.location.reload();
+    };
+
     window.addEventListener(CONSENT_CHANGE_EVENT, onChange);
     return () => window.removeEventListener(CONSENT_CHANGE_EVENT, onChange);
   }, []);
 
   if (!loadScript) return null;
 
-  // Com GTM, o container carrega no lugar do gtag.js e o GA4 passa a ser
-  // configurado lá dentro (tag de configuração do GA4 no container).
+  // Com GTM, o container carrega no lugar do gtag.js e o GA4 é configurado lá
+  // dentro. Não existe outro carregamento de GTM ou GA4 no site.
   if (GTM_ID) {
     return (
       <Script id="gtm-container" strategy="afterInteractive">

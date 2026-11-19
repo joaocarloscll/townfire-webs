@@ -5,7 +5,7 @@ carrega o GTM; a **configuração web** (GTM, GA4, Google Ads, Search Console,
 Business Profile) é feita nas contas do Google conforme este documento.
 
 ```
-Visitante ──► Banner de consentimento ──(aceitou medição)──► carrega GTM
+Visitante ──► Aviso de consentimento ──(permitiu ≥ 1 finalidade)──► carrega GTM
    │                                                            │
    └─ clica em botão [data-event] ─► ClickTracker ─► dataLayer ─┤
                                                                 ▼
@@ -48,16 +48,80 @@ Valores de `intent`: `institutional_general`, `institutional_header`,
 (fonte: `src/lib/whatsapp.ts`). `phone_click` e `instagram_click` não têm
 `intent` útil (vem `none`).
 
-Consentimento (Consent Mode v2): o site define `analytics_storage`,
-`ad_storage`, `ad_user_data` e `ad_personalization` como `denied` e só
-atualiza `analytics_storage` para `granted` quando o visitante aceita a
-medição. **O container GTM só é carregado depois desse aceite.** Sinais de
-publicidade ficam `denied` até existir categoria de publicidade no banner
-(decisão em aberto, ver seção 7).
+## Consentimento (Consent Mode v2)
 
-Variável de ambiente: `NEXT_PUBLIC_GTM_ID=GTM-XXXXXXX` (Vercel → Project →
-Settings → Environment Variables; exige novo deploy). Sem ela o site usa o
-`gtag.js` direto com o GA4 `G-7VSW42JTD9` e envia os mesmos eventos.
+**Modo encontrado e mantido: básico, controlado pelo código do site.** Os
+quatro sinais começam `denied` antes de qualquer script do Google; o GTM só
+é carregado (um único carregamento, sem GA4 extra) depois que a pessoa
+permite ao menos uma finalidade. Antes disso, nenhuma requisição ao Google.
+
+**O defeito corrigido:** o aceite concedia só `analytics_storage`, e
+`ad_storage`/`ad_user_data` ficavam `denied` para sempre, então o Google Ads
+não recebia dados de conversão atribuíveis.
+
+Finalidades escolhidas separadamente (aviso curto + modal "Escolher
+preferências"; controles desmarcados sem escolha válida):
+
+| Escolha                      | analytics_storage | ad_storage | ad_user_data | ad_personalization |
+| ---------------------------- | ----------------- | ---------- | ------------ | ------------------ |
+| Sem escolha ou recusa        | denied            | denied     | denied       | denied             |
+| Só análise do site           | granted           | denied     | denied       | denied             |
+| Só medição dos anúncios      | denied            | granted    | granted      | denied             |
+| As duas medições             | granted           | granted    | granted      | denied             |
+
+`ad_personalization` fica sempre `denied` (o escopo é medição). O mapeamento
+vive em `consentSignals()` (`src/lib/consent.ts`) e é replicado no script
+inline do `<head>` (`CONSENT_BOOTSTRAP_SCRIPT`), que roda antes de qualquer
+script do Google e da hidratação: `consent default` (tudo `denied`) e, havendo
+escolha válida salva, `consent update`. `Analytics.tsx` não redefine o
+estado: só reage a mudanças (um único dono dos sinais), na ordem
+**default → update → carregamento da tag → eventos**.
+
+- **Persistência:** `localStorage["townfire-consent-v2"]` guarda versão do
+  aviso, finalidades e data. Sem armazenamento, a escolha vale na memória da
+  sessão e nada quebra (site e WhatsApp seguem).
+- **Escolha antiga** (`townfire-consent-v1`, só Analytics): vale apenas o que
+  autorizava (`granted` → só análise; nunca anúncios) e o aviso reaparece,
+  sem bloquear. Ao escolher, a chave antiga é removida.
+- **Revogação:** os sinais são atualizados na hora; cookies da finalidade
+  retirada (`_ga*` para análise, `_gcl_*`/`_gac_*` para anúncios) e os
+  parâmetros de campanha guardados dela são apagados. Se nada sobrar e a tag já
+  carregou nesta página, recarrega uma vez (tag carregada não se descarrega).
+- **Reabrir:** "Preferências de privacidade" no rodapé e na política abre o
+  modal (`<dialog>` nativo: foco preso, Esc fecha, foco volta ao controle).
+- **Evento só com consentimento:** `trackEvent` não empurra nada se nenhuma
+  finalidade estiver permitida; assim o GTM, ao carregar depois do aceite,
+  não reprocessa um clique feito antes dele.
+
+Variável de ambiente: `NEXT_PUBLIC_GTM_ID=GTM-TG6WQHC5` (Vercel → Project →
+Settings → Environment Variables; exige novo deploy; confirmada no JS de
+produção). Sem ela o site usa o `gtag.js` direto com o GA4 `G-L3506HVLRM`
+(propriedade "Town Fire - townfire.com.br", ID 559353950) e os mesmos eventos.
+
+### Identificação do acesso (anúncio → página → botão → /go/whatsapp)
+
+`src/lib/attribution.ts`: lê `gclid`/`gbraid`/`wbraid` e UTMs da URL de
+entrada. Antes de qualquer escolha ficam só na memória da página (sobrevivem à
+navegação interna, não são gravados nem enviados). UTMs só são gravados
+(`sessionStorage`) com alguma medição permitida; identificadores de clique só
+com a medição de anúncios permitida, quando também voltam à URL (sem sobrescrever)
+antes de a tag do Google carregar. No clique do WhatsApp, `ClickTracker`
+acrescenta ao `/go/whatsapp` só o que a escolha permite, sem duplicar. A rota
+lê identificadores de clique **apenas** da querystring dela (nunca do referer);
+UTMs também podem vir do referer. Nada de telefone nem texto digitado vai ao
+GA4. O evento significa clique para abrir o WhatsApp, não mensagem enviada.
+
+### Dependências fora do código (GTM / Google Ads)
+
+- As tags GA4 do container devem exigir `analytics_storage` e a tag de
+  conversão/Google Ads deve exigir `ad_storage` (e `ad_user_data`), para que
+  "só anúncios" não dispare GA4 e "só análise" não dispare Ads. O container
+  não é editável por este repositório.
+- Não ativar o acionador automático de cliques do GTM (duplicaria
+  `whatsapp_click`). A contagem "uma por sessão" do GA4 é configuração da
+  propriedade e não foi alterada.
+- A atribuição no Google Ads só pode ser confirmada com tráfego real elegível
+  e dados processados.
 
 ## 2. Google Tag Manager (lado web)
 
@@ -70,7 +134,7 @@ Container: tipo **Web**, nome "townfire.com.br".
 | `DLV - placement` | `placement`   |
 | `DLV - intent`    | `intent`      |
 | `DLV - page_path` | `page_path`   |
-| `CONST - GA4 ID`  | constante `G-7VSW42JTD9` |
+| `CONST - GA4 ID`  | constante `G-L3506HVLRM` |
 
 **Acionadores (Custom Event, correspondência exata)**
 
@@ -95,7 +159,7 @@ Container: tipo **Web**, nome "townfire.com.br".
 Não ativar o "Click" automático do GTM para links: os eventos acima já
 cobrem tudo e evitam contagem duplicada.
 
-## 3. GA4 (property do `G-7VSW42JTD9`)
+## 3. GA4 (propriedade do `G-L3506HVLRM`)
 
 - **Key events:** marcar `whatsapp_click` (principal) e `phone_click`.
 - **Dimensões personalizadas (escopo evento):** `placement`, `intent`
@@ -115,9 +179,9 @@ cobrem tudo e evitam contagem duplicada.
   valor estimado por lead).
 - O `gclid` já é registrado no log do `/go/whatsapp` (não vai para a
   mensagem do cliente).
-- Limitação conhecida: sem `ad_storage` concedido o Google Ads usa
-  modelagem de conversões. Para atribuição melhor é preciso uma categoria de
-  publicidade no banner (seção 7).
+- Com a medição de anúncios permitida (`ad_storage` e `ad_user_data`
+  `granted`) o Google Ads recebe a conversão atribuível. Sem ela, usa
+  modelagem de conversões.
 
 ## 5. Search Console
 
@@ -136,11 +200,8 @@ cobrem tudo e evitam contagem duplicada.
 
 ## 7. Decisões em aberto
 
-1. **Categoria de publicidade no consentimento.** Hoje o banner só tem
-   "medição". Para anúncios com remarketing/atribuição completa é preciso
-   adicionar uma escolha de publicidade e atualizar `ad_storage`,
-   `ad_user_data` e `ad_personalization`. Mudança de código + texto da
-   política de privacidade.
+1. ~~Categoria de publicidade no consentimento~~ — implementada (ver
+   "Consentimento"). Personalização de anúncios segue fora do escopo.
 2. **WhatsApp na mesma aba ou em nova aba.** O clique passa por
    `/go/whatsapp` (redirect 302). O GA4 envia o evento por beacon na saída
    da página, o que funciona na prática, mas abrir em nova aba
@@ -149,8 +210,9 @@ cobrem tudo e evitam contagem duplicada.
 ## 8. Checklist de validação
 
 1. Definir `NEXT_PUBLIC_GTM_ID` na Vercel e fazer deploy.
-2. Abrir o site, **aceitar** a medição, e abrir o GTM em *Preview* (Tag
-   Assistant) com a URL do site.
+2. Abrir o site, **escolher** as medições, e abrir o GTM em *Preview* (Tag
+   Assistant) com a URL do site. Conferir os quatro sinais de consentimento
+   em cada combinação (tabela acima) e a ordem default → update → tags.
 3. Clicar em um botão de WhatsApp: no Tag Assistant o evento
    `whatsapp_click` deve aparecer com `placement`, `intent` e `page_path`,
    e a tag `GA4 - Event - whatsapp_click` deve disparar.

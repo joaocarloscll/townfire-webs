@@ -45,6 +45,10 @@ body {
   color: var(--tf-charcoal);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* Espaço para o aviso de consentimento (fixo no rodapé da tela) enquanto
+     ele está aberto: o fim da página e o rodapé continuam acessíveis. A altura
+     é publicada por ConsentBanner em --tf-consent-h. */
+  padding-bottom: var(--tf-consent-h, 0px);
 }
 
 ::selection {
